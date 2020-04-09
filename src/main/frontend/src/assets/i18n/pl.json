@@ -1,0 +1,21 @@
+{
+  "ALL": {
+    "WARNING": "Ostrzeżenie",
+    "ADD": "Dodaj",
+    "CHOOSE": "Wybierz",
+    "SAVE": "Zapisz",
+    "CANCEL": "Anuluj",
+    "YES": "Tak",
+    "BACK": "Wróć"
+  },
+  "REPORT_FIRE": {
+    "TITLE": "Zgłoś pożar"
+  },
+  "EXCEPTION": {
+    "UNEXPECTED": "Wystąpił nieoczekiwany błąd"
+  },
+  "VALIDATION": {
+    "FIELD_NOT_VALID": "Pole jest niepoprawne.",
+    "REQUIRED": "Pole jest wymagane."
+  }
+}

@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(TestResource.TEST_URI)
-class TestResource {
+@RequestMapping(TestController.TEST_URI)
+class TestController {
 
     static final String TEST_URI = Endpoint.API_ROOT + "/test";
 
