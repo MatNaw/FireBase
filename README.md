@@ -20,7 +20,7 @@ Aplikacja webowa do wspomagania centrali strażackiej wyznaczającej drużyny st
 
 ## 2. Uruchamianie projektu
 ##### Backend - przy pierwszym uruchomieniu:  
-W głównym katalogu projektu wykonujemy polecenie docker-compose -f ./docker/docker-compose.postgres.yml up -d
+W głównym katalogu projektu wykonujemy polecenie `docker-compose -f ./docker/docker-compose.postgres.yml up -d`
 
 ##### Frontend
 W katalogu `frontend` wykonujemy polecenie `npm install`, aby załadować wszystkie pakiety, a następnie `npm start`
