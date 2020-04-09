@@ -1,0 +1,32 @@
+spring:
+  application:
+    name: 'FIREBASE'
+
+  devtools:
+    livereload:
+      enabled: false
+
+  datasource:
+    hikari:
+      pool-name: spdb-firebase
+      minimum-idle: 1
+      maximum-pool-size: 20
+    url: jdbc:postgresql://localhost:5433/firebase
+    username: firebase
+    password: firebase
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    generate-ddl: false
+    open-in-view: false
+    show-sql: false
+    properties:
+      hibernate:
+        #ddl-auto: create-drop
+        jdbc:
+          lob:
+            non_contextual_creation: true
+
+  liquibase:
+    change-log: classpath:/db/changelog/db.changelog-master.xml
+    contexts: master, dev
