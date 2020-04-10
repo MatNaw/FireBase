@@ -2,6 +2,7 @@ package com.spdb.firebase.presentation.fire_brigade;
 
 import com.spdb.firebase.domain.fire_brigade.FireBrigadeService;
 import com.spdb.firebase.system.Endpoint;
+import com.spdb.firebase.system.exception.BusinessException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

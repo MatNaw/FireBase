@@ -13,9 +13,7 @@ public class FireBrigadeService {
     private final FireBrigadeEntityMapper fireBrigadeEntityMapper;
 
     public List<FireBrigade> findAllFireBrigades() {
-        List<FireBrigadeEntity> tmp = fireBrigadeRepository.findAll();
-
-        return tmp.stream()
+        return fireBrigadeRepository.findAll().stream()
                 .map(fireBrigadeEntityMapper::toFireBrigade)
                 .collect(Collectors.toList());
     }
