@@ -17,4 +17,9 @@ public class FireBrigadeService {
                 .map(fireBrigadeEntityMapper::toFireBrigade)
                 .collect(Collectors.toList());
     }
+
+    public Long addFireBrigade(FireBrigade brigade) {
+        FireBrigadeEntity brigadeEntity = fireBrigadeEntityMapper.toFireBrigadeEntity(brigade);
+        return fireBrigadeRepository.save(brigadeEntity).getId();
+    }
 }
