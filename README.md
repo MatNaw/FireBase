@@ -26,9 +26,10 @@ W głównym katalogu projektu wykonujemy polecenie docker-compose -f ./docker/do
 W katalogu `frontend` wykonujemy polecenie `npm install`, aby załadować wszystkie pakiety, a następnie `npm start`
 
 ### Profile Spring
-| Nazwa profilu               | Opis                                                                      |
-| --------------------------- | ------------------------------------------------------------------------- |
-| `swagger`                   | Udostępnia UI Swaggera (http://localhost:${server.port}/swagger-ui.html)  |
-| `dev`                       | Uruchamia changeset'a z danymi inicjalnymi                                |
+| Nazwa profilu               | Opis                                                                        |
+| --------------------------- | --------------------------------------------------------------------------- |
+| `swagger`                   | Udostępnia UI Swaggera (http://localhost:${server.port}/swagger-ui.html)    |
+| `dev`                       | Uruchamia changeset'a z danymi inicjalnymi                                  |
+| `import`                    | Uruchamia import jednostek strażackich z pliku znajdującego się w storage'u |                                |
 
 ##### Port aplikacji: `8080`

@@ -30,3 +30,6 @@ spring:
   liquibase:
     change-log: classpath:/db/changelog/db.changelog-master.xml
     contexts: master, dev
+
+storage:
+  import-directory: a_storage/initial_data
