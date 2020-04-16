@@ -1,6 +1,12 @@
-$fire-primary: #fd495c;
-$fire-primary-darker: #84484e;
+$fire-primary-blue: #003366;
 $fire-blue: #008baa;
+$fire-red: #c40011;
+$fire-light-red: #db0114;
+
+$fire-required: #fd495c;
+$fire-shadow: rgba(0, 51, 102, 0.6);
+$fire-box-background: #eff8fc;
+$fire-background: #e6f7fc;
 
 @import "bootstrap/overrides";
 @import "~bootstrap/scss/functions";
