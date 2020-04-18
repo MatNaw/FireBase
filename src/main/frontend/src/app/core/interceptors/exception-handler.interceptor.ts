@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Router } from '@angular/router';
 
@@ -17,16 +17,13 @@ export class ExceptionHandlerInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(req)
       .pipe(
-        catchError((response: HttpErrorResponse) => {
-          if (response.status === 401) {
-            this.router.navigateByUrl('auth');
-            this.toastr.error(this.translate.instant(response.error.message));
-          } else if (!response.error.message) {
+        catchError((errorResponse: HttpErrorResponse) => {
+          if (!errorResponse.error.message) {
             this.toastr.error(this.translate.instant('EXCEPTION.UNEXPECTED'));
           } else {
-              this.toastr.error(response.error.message);
+              this.toastr.error(errorResponse.error.message);
           }
-          return throwError(response);
+          return throwError(errorResponse);
         })
       );
   }

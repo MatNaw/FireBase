@@ -1,0 +1,63 @@
+@import "../shared";
+
+.modal-content {
+  background-color: transparent;
+  border: none;
+
+  .modal-body {
+    padding: 0;
+  }
+
+  .modal-container {
+    border-radius: 1.1rem;
+    padding: 0;
+
+    .button-modal-close {
+      padding: 0;
+      outline: none;
+      font-size: 1.5rem;
+      position: absolute;
+      top: 1.4rem;
+      right: 2rem;
+      z-index: 1;
+
+      &:focus {
+        outline: none;
+        box-shadow: none;
+      }
+
+      i {
+        position: absolute;
+        top: 0;
+        right: 0;
+      }
+    }
+
+    .modal-header {
+      border-radius: 1.1rem 1.1rem 0 0;
+      clip-path: inset(-.15rem -.15rem 0 -.15rem);
+      background-color: $modal-header-background;
+      width: 100%;
+      height: $modal-header-height;
+
+      .modal-header-text-centered {
+        margin: 1.5rem 1rem;
+      }
+
+      .two-line-container {
+        display: flex;
+        flex-direction: column;
+
+        .sub-title {
+          font-size: 1.15rem;
+        }
+      }
+    }
+
+    .modal-content {
+      padding: 1.5rem 2rem;
+      border-radius: 0 0 1.1rem 1.1rem;
+      background-color: $white;
+    }
+  }
+}

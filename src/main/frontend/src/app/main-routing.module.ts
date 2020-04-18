@@ -7,10 +7,10 @@ import { ViewModel } from '@app/core/navigation/view.model';
 const routes: Routes = [
   {
     path: '', component: MainContainerComponent, children: [
-      { path: '', redirectTo: ViewModel.REPORT_FIRE, pathMatch: 'full' },
+      { path: '', redirectTo: ViewModel.FIRE_OVERVIEW, pathMatch: 'full' },
       {
-        path: ViewModel.REPORT_FIRE,
-        loadChildren: '@app/report-fire/report-fire.module#ReportFireModule',
+        path: ViewModel.FIRE_OVERVIEW,
+        loadChildren: '@app/view/fire-overview/fire-overview.module#FireOverviewModule',
       }
     ]
   }
