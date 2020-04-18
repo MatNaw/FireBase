@@ -13,7 +13,9 @@
     "REPORT_FIRE": "Zgłoś pożar"
   },
   "REPORT_FIRE": {
-    "TITLE": "Zgłoś pożar"
+    "TITLE": "Zgłoś pożar",
+    "FIRE_PLACE": "Miejsce zdarzenia",
+    "SET_FIRE_PLACE": "Podaj miejsce zdarzenia"
   },
   "EXCEPTION": {
     "UNEXPECTED": "Wystąpił nieoczekiwany błąd"

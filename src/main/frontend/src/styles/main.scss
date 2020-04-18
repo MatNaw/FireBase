@@ -2,6 +2,8 @@
 @import "mixins";
 @import "bootstrap/overrides";
 @import "bootstrap/bootstrap";
+@import "components/_modal";
+@import "components/_input";
 
 @import '~ngx-toastr/toastr-bs4-alert';
 
@@ -17,7 +19,6 @@ html {
 }
 
 body {
-  background-color: $fire-background;
   font-size: 1.6rem;
   font-family: Arial, Helvetica, sans-serif;
 }
@@ -28,15 +29,6 @@ html, body {
 
 h1 {
   line-height: 25px;
-
-  @include media-breakpoint-up(sm) {
-    padding-bottom: 1.25rem;
-    margin-bottom: 0.25rem;
-  }
-
-  @include media-breakpoint-down(xs) {
-    margin-bottom: 0.9rem;
-  }
 }
 
 .validation-error {
@@ -72,7 +64,7 @@ h1 {
       color: $fire-primary-blue;
       background-color: $fire-light-red;
     }
-}
+  }
 }
 
 .box {

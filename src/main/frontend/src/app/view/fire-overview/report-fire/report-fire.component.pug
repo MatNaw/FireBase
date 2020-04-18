@@ -1,0 +1,18 @@
+.container-fluid.modal-container
+  button.btn.button-modal-close(type="button", (click)="cancel()")
+    i.fas.fa-times
+
+  .modal-header
+    .modal-header-text-centered
+      h2(translate) REPORT_FIRE.TITLE
+
+  .modal-content
+    .row.align-items-center
+      .col-md-3.col-sm-12
+        label(for="place", translate) REPORT_FIRE.FIRE_PLACE
+      .col-md-9.col-sm-12
+        input#place(type="text",
+          #place="ngModel",
+          [(ngModel)]="firePlace",
+          placeholder="{{ 'REPORT_FIRE.SET_FIRE_PLACE' | translate }}")
+

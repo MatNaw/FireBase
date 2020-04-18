@@ -1,0 +1,23 @@
+@import "../shared";
+
+input[type='text']:not([role='combobox']),
+input[type='number']:not([role='combobox']) {
+  color: $black;
+  border-radius: $border-radius;
+  border: solid .1rem $grey;
+  width: 100%;
+  height: 3.2rem;
+  font-size: 1.5rem;
+  padding: .7rem .4rem .7rem .85rem;
+  font-weight: 300;
+
+  &:focus {
+    border: solid .1rem $grey !important;
+    box-shadow: none !important;
+    outline: 0 !important;
+  }
+
+  &::placeholder {
+    color: $grey;
+  }
+}

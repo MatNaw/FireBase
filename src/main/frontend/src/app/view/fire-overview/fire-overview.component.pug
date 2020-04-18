@@ -1,0 +1,11 @@
+.row.mt-5
+  .container.box
+    .row.m-auto.d-flex.align-items-center.justify-content-between
+      h1(translate) FIRE_OVERVIEW.TITLE
+      button.btn.btn-link.btn-text((click)="reportFire()", translate) FIRE_OVERVIEW.REPORT_FIRE
+    // it's temporary input - there will be table or sth similar
+    input.w-100(type="number")
+
+ng-template(#reportFireContent, let-modal)
+  .modal-body
+    fire-report-fire([modal]="modal", (submittedEventEmitter)="onSubmittedEventEmitter()")

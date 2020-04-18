@@ -10,7 +10,7 @@ const routes: Routes = [
       { path: '', redirectTo: ViewModel.FIRE_OVERVIEW, pathMatch: 'full' },
       {
         path: ViewModel.FIRE_OVERVIEW,
-        loadChildren: '@app/fire-overview/fire-overview.module#FireOverviewModule',
+        loadChildren: '@app/view/fire-overview/fire-overview.module#FireOverviewModule',
       }
     ]
   }
