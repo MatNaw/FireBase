@@ -16,3 +16,13 @@
           [(ngModel)]="firePlace",
           placeholder="{{ 'REPORT_FIRE.SET_FIRE_PLACE' | translate }}")
 
+    .row
+      .map-content
+        agm-map([fitBounds]="true",
+          [latitude]="lat",
+          [zoom] = "zoom",
+          [longitude] = "lng")
+
+          agm-marker([latitude]="lat",
+            [longitude]="lng",
+            [agmFitBounds]="true")

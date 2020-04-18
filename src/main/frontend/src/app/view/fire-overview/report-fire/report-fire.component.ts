@@ -12,6 +12,10 @@ export class ReportFireComponent implements OnInit, OnDestroy {
   @Output() submittedEventEmitter = new EventEmitter();
   firePlace: String;
 
+  lat: number = -23.8779431;
+  lng: number = -49.8046873;
+  zoom: number = 10;
+
   constructor() { }
 
   ngOnInit() {
