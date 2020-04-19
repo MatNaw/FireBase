@@ -1,9 +1,9 @@
-package com.spdb.firebase.domain.brigade;
+package com.spdb.firebase.domain.fire;
 
-import com.spdb.firebase.domain.fire.FireBrigadeEntity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.List;
 
 @Builder
@@ -12,14 +12,11 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "brigade")
-public class BrigadeEntity {
+@Table(name = "fire")
+public class FireEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(name = "name", nullable = false)
-    private String name;
 
     @Column(name = "city", nullable = false)
     private String city;
@@ -30,9 +27,13 @@ public class BrigadeEntity {
     @Column(name = "street", nullable = false)
     private String street;
 
-    @Column(name = "squad_max_amount", nullable = false)
-    private Long squadMaxAmount;
+    @Column(name = "date", nullable = false)
+    private LocalDate date;
 
-    @OneToMany(mappedBy = "brigade", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<FireBrigadeEntity> fires;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status", nullable = false)
+    private Status status;
+
+    @OneToMany(mappedBy = "fire", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    private List<FireBrigadeEntity> brigades;
 }

@@ -4,11 +4,27 @@
         xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
         xsi:schemaLocation='http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd'>
 
-    <changeSet id='add-fire-brigades' author='pkarbownik' runOnChange='true'>
+    <changeSet id='add-brigades' author='pkarbownik' runOnChange='true'>
+        <sql>
+            DELETE FROM brigade;
+
+            INSERT INTO brigade (name, city, postal_code, street, squad_max_amount) VALUES ('Jednostka 1', 'Warszawa', '02-236', 'Jagiellońska', 5);
+        </sql>
+    </changeSet>
+
+    <changeSet id='add-fires' author='pkarbownik' runOnChange='true'>
+        <sql>
+            DELETE FROM fire;
+
+            INSERT INTO fire (city, postal_code, street, date, status) VALUES ('Warszawa', '02-236', 'Broniewskiego', '2020-04-19', 'ACTIVE');
+        </sql>
+    </changeSet>
+
+    <changeSet id='add-brigade-fire-relation' author='pkarbownik' runOnChange='true'>
         <sql>
             DELETE FROM fire_brigade;
 
-            INSERT INTO fire_brigade (name, city, postal_code, street, squad_amount) VALUES ('Jednostka 1', 'Warszawa', '02-236', 'Jagiellońska', 5);
+            INSERT INTO fire_brigade (fire_id, brigade_id, squad_amount) VALUES (1, 1, 3);
         </sql>
     </changeSet>
 
