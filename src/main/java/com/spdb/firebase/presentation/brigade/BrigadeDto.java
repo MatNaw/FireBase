@@ -1,4 +1,4 @@
-package com.spdb.firebase.presentation.fire_brigade;
+package com.spdb.firebase.presentation.brigade;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -7,11 +7,11 @@ import lombok.Setter;
 @Builder
 @Getter
 @Setter
-public class FireBrigadeDto {
+public class BrigadeDto {
     private Long id;
     private String name;
     private String city;
     private String postalCode;
     private String street;
-    private Long squadAmount;
+    private Long squadMaxAmount;
 }
