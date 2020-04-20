@@ -12,11 +12,9 @@ public class FireService {
     private final FireRepository fireRepository;
     private final FireEntityMapper fireEntityMapper;
 
-    public void findAllActiveFires() {
-        List<Fire> fires = fireRepository.findAllByStatus(Status.ACTIVE).stream()
+    public List<Fire> findAllActiveFires() {
+        return fireRepository.findAllByStatus(Status.ACTIVE).stream()
                 .map(fireEntityMapper::toFire)
                 .collect(Collectors.toList());
-
-        System.out.println("xx");
     }
 }
