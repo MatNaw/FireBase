@@ -11,6 +11,7 @@ import { BootstrapModule } from '@app/shared/bootstrap.module';
 import { ValidationErrorsComponent } from '@app/shared/validation/validation-errors.component';
 import { ValidationErrorComponent } from '@app/shared/validation/validation-error.component';
 import { PopupComponent } from '@app/shared/popup/popup.component';
+import { MatExpansionModule } from '@angular/material';
 
 export const components = [
   ValidationErrorsComponent,
@@ -29,7 +30,8 @@ export const components = [
     BootstrapModule,
     NgxDatatableModule,
     NgSelectModule,
-    TextMaskModule
+    TextMaskModule,
+    MatExpansionModule
   ],
   exports: [
     CommonModule,
@@ -39,6 +41,7 @@ export const components = [
     NgxDatatableModule,
     NgSelectModule,
     TextMaskModule,
+    MatExpansionModule,
 
     ...components
   ]

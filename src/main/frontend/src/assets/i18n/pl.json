@@ -10,7 +10,16 @@
   },
   "FIRE_OVERVIEW": {
     "TITLE": "Aktywne pożary",
-    "REPORT_FIRE": "Zgłoś pożar"
+    "REPORT_FIRE": "Zgłoś pożar",
+    "DATE": "Data",
+    "POSTAL_CODE": "Kod pocztowy",
+    "CITY": "Miasto",
+    "STREET": "Ulica",
+    "SQUAD_AMOUNT": "Liczba drużyn",
+    "BRIGADE_NAME": "Nazwa jednostki",
+    "BRIGADE_CITY": "Miasto jednostki",
+    "BRIGADE_STREET": "Ulica jednostki",
+    "BRIGADE_SQUAD_AMOUNT": "Liczba drużyn z jednostki"
   },
   "REPORT_FIRE": {
     "TITLE": "Zgłoś pożar",

@@ -1,0 +1,45 @@
+@import "~styles/shared";
+
+.table-header {
+  padding: 2rem;
+  font-weight: 900;
+  font-size: 1.85rem;
+  color: $fire-primary-blue;
+
+  @include media-breakpoint-down(md) {
+    display: none;
+  }
+}
+
+.fire-container {
+  border: solid 0.1rem $fire-blue;
+  border-radius: $border-radius;
+  color: $fire-primary-blue;
+
+  mat-expansion-panel {
+    background-color: $fire-box-background;
+    width: 100%;
+
+    mat-expansion-panel-header {
+      background-color: $fire-lighter-background;
+      padding: 2rem;
+      height: 100%;
+      border-bottom: solid 0.1rem $fire-blue;
+      font-weight: 500;
+    }
+  }
+
+  .brigades-content {
+    margin-top: 1rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    font-size: 1.25rem;
+
+    .title {
+      //font-weight: bold;
+      text-decoration: underline;
+      font-size: 1.4rem;
+    }
+  }
+}
+

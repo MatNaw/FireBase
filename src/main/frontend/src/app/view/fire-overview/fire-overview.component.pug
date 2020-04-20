@@ -3,8 +3,35 @@
     .row.m-auto.d-flex.align-items-center.justify-content-between
       h1(translate) FIRE_OVERVIEW.TITLE
       button.btn.btn-link.btn-text((click)="reportFire()", translate) FIRE_OVERVIEW.REPORT_FIRE
-    // it's temporary input - there will be table or sth similar
-    input.w-100(type="number")
+
+    .row.table-header
+      span.col-md-2(translate) FIRE_OVERVIEW.DATE
+      span.col-md-2(translate) FIRE_OVERVIEW.POSTAL_CODE
+      span.col-md-3(translate) FIRE_OVERVIEW.CITY
+      span.col-md-3(translate) FIRE_OVERVIEW.STREET
+      span.col-md-2(translate) FIRE_OVERVIEW.SQUAD_AMOUNT
+
+    .row.mt-2.fire-container(*ngFor="let fire of fires")
+      mat-expansion-panel(expanded="true")
+        mat-expansion-panel-header
+          span.col-md-2.col-12 {{ fire.date }}
+          span.col-md-2.col-6 {{ fire.postalCode }}
+          span.col-md-3.col-6 {{ fire.city }}
+          span.col-md-3.col-12 {{ fire.street }}
+          span.col-md-2.col-12 {{ getSquadsAmount(fire.id) }}
+
+        .brigades-content
+          .row
+            span.col-md-3.title(translate) FIRE_OVERVIEW.BRIGADE_NAME
+            span.col-md-3.title(translate) FIRE_OVERVIEW.BRIGADE_CITY
+            span.col-md-3.title(translate) FIRE_OVERVIEW.BRIGADE_STREET
+            span.col-md-3.title(translate) FIRE_OVERVIEW.BRIGADE_SQUAD_AMOUNT
+
+          .row(*ngFor="let squad of fire.squads")
+            span.col-3 {{ squad.brigade.name }}
+            span.col-3 {{ squad.brigade.city }}
+            span.col-3 {{ squad.brigade.street }}
+            span.col-3 {{ squad.squadAmount }}
 
 ng-template(#reportFireContent, let-modal)
   .modal-body

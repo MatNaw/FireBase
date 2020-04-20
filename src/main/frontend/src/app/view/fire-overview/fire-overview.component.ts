@@ -1,5 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+
+import { FireModel } from '@app/view/fire-overview/models/fire.model';
+import { FireOverviewService } from '@app/view/fire-overview/fire-overview.service';
 
 @Component({
   selector: 'fire-fire-overview',
@@ -9,11 +13,12 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 export class FireOverviewComponent implements OnInit {
 
   @ViewChild('reportFireContent') reportFireContent;
+  public fires: FireModel[];
 
-  constructor(private modals: NgbModal) { }
+  constructor(private fireOverviewService: FireOverviewService, private modals: NgbModal) { }
 
   ngOnInit() {
-    console.log('fire-overview');
+    this.getData();
   }
 
   reportFire() {
@@ -24,7 +29,14 @@ export class FireOverviewComponent implements OnInit {
     this.getData();
   }
 
-  getData() {
-    console.log('get active fires from db');
+  getSquadsAmount(fireId: number) {
+    return this.fires.find(fire => fire.id === fireId)
+      .squads.map(it => it.squadAmount)
+      .reduce((a, b) => a + b, 0);
+  }
+
+  private getData() {
+    this.fireOverviewService.getAllActiveFires()
+      .subscribe(result => this.fires = result);
   }
 }
