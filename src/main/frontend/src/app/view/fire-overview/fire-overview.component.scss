@@ -23,9 +23,16 @@
     mat-expansion-panel-header {
       background-color: $fire-lighter-background;
       padding: 2rem;
-      height: 100%;
       border-bottom: solid 0.1rem $fire-blue;
       font-weight: 500;
+
+      @include media-breakpoint-down(md) {
+        font-size: 1.25rem;
+      }
+    }
+
+    .mat-expansion-panel-body {
+      padding: 0 !important;
     }
   }
 
@@ -36,9 +43,16 @@
     font-size: 1.25rem;
 
     .title {
-      //font-weight: bold;
       text-decoration: underline;
       font-size: 1.4rem;
+    }
+
+    .brigade {
+      @include media-breakpoint-down(md) {
+        span {
+          padding: 0;
+        }
+      }
     }
   }
 }

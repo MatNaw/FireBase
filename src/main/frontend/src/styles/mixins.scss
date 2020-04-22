@@ -8,8 +8,4 @@
   box-shadow: 0 0 40px $fire-shadow;
   margin-bottom: 24px;
   border-radius: 10px;
-
-  @include media-breakpoint-down(sm) {
-    padding: 1rem;
-  }
 }

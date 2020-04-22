@@ -19,7 +19,8 @@
     "BRIGADE_NAME": "Nazwa jednostki",
     "BRIGADE_CITY": "Miasto jednostki",
     "BRIGADE_STREET": "Ulica jednostki",
-    "BRIGADE_SQUAD_AMOUNT": "Liczba drużyn z jednostki"
+    "BRIGADE_SQUAD_AMOUNT": "Liczba drużyn z jednostki",
+    "BRIGADE_DESCRIPTION_MOBILE": "Nazwa, miejscowość, ulica i liczba drużyn:"
   },
   "REPORT_FIRE": {
     "TITLE": "Zgłoś pożar",

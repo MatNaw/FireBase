@@ -4,6 +4,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { FireModel } from '@app/view/fire-overview/models/fire.model';
 import { FireOverviewService } from '@app/view/fire-overview/fire-overview.service';
+import { ViewportUtil } from '@app/core/viewport.util';
 
 @Component({
   selector: 'fire-fire-overview',
@@ -14,8 +15,11 @@ export class FireOverviewComponent implements OnInit {
 
   @ViewChild('reportFireContent') reportFireContent;
   public fires: FireModel[];
+  isMobile: boolean;
 
-  constructor(private fireOverviewService: FireOverviewService, private modals: NgbModal) { }
+  constructor(private fireOverviewService: FireOverviewService, private modals: NgbModal) {
+    this.isMobile = ViewportUtil.isMobile();
+  }
 
   ngOnInit() {
     this.getData();
