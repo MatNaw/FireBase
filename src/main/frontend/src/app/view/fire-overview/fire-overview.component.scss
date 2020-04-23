@@ -17,10 +17,6 @@
   span {
     padding: 0;
   }
-
-  @include media-breakpoint-down(md) {
-    display: none;
-  }
 }
 
 .fire-container {
