@@ -1,18 +1,18 @@
 .row.mt-5
   .container.box
-    .row.m-auto.d-flex.align-items-center.justify-content-between
+    .row.container-title
       h1(translate) FIRE_OVERVIEW.TITLE
       button.btn.btn-link.btn-text((click)="reportFire()", translate) FIRE_OVERVIEW.REPORT_FIRE
 
-    .row.table-header
-      .row.w-100(*ngIf="!isMobile")
+    .table-header
+      .row.m-0(*ngIf="!isMobile")
         span.col-2(translate) FIRE_OVERVIEW.DATE
         span.col-2(translate) FIRE_OVERVIEW.POSTAL_CODE
         span.col-3(translate) FIRE_OVERVIEW.CITY
         span.col-3(translate) FIRE_OVERVIEW.STREET
         span.col-2(translate) FIRE_OVERVIEW.SQUAD_AMOUNT
 
-    .row.mt-2.fire-container(*ngFor="let fire of fires")
+    .row.mt-3.fire-container(*ngFor="let fire of fires")
       mat-expansion-panel(expanded="true")
         mat-expansion-panel-header([collapsedHeight]="isMobile ? '10rem' : '1rem'", [expandedHeight]="isMobile ? '10rem' : '1rem'")
           .row.w-100(*ngIf="!isMobile")
