@@ -6,7 +6,7 @@
 
     ng-container(*ngIf="isMobile else desktopContent")
       .row.mt-3.fire-container(*ngFor="let fire of fires")
-        mat-expansion-panel(expanded="true")
+        mat-expansion-panel
           mat-expansion-panel-header(collapsedHeight="10rem", expandedHeight="10rem")
             .row.w-100
               span.col-12 {{ ('FIRE_OVERVIEW.DATE' | translate) + ': ' + fire.date }}
@@ -36,7 +36,7 @@ ng-template(#desktopContent)
       span.col-2(translate) FIRE_OVERVIEW.SQUAD_AMOUNT
 
   .row.mt-3.fire-container(*ngFor="let fire of fires")
-    mat-expansion-panel(expanded="true")
+    mat-expansion-panel
       mat-expansion-panel-header(collapsedHeight="1rem", expandedHeight="1rem")
         .row.w-100
           span.col-2 {{ fire.date }}
