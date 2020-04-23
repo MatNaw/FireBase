@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { MatExpansionModule } from '@angular/material';
 
 import { TranslateModule } from '@ngx-translate/core';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
@@ -11,7 +12,6 @@ import { BootstrapModule } from '@app/shared/bootstrap.module';
 import { ValidationErrorsComponent } from '@app/shared/validation/validation-errors.component';
 import { ValidationErrorComponent } from '@app/shared/validation/validation-error.component';
 import { PopupComponent } from '@app/shared/popup/popup.component';
-import { MatExpansionModule } from '@angular/material';
 
 export const components = [
   ValidationErrorsComponent,
