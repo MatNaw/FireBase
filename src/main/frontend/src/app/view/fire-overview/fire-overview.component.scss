@@ -1,0 +1,68 @@
+@import "~styles/shared";
+
+.container-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 1rem 0.5rem;
+}
+
+.table-header {
+  margin: 1rem 4rem 0;
+  padding: 0;
+  font-weight: 900;
+  font-size: 1.85rem;
+  color: $fire-primary-blue;
+
+  span {
+    padding: 0;
+  }
+}
+
+.fire-container {
+  border: solid 0.1rem $fire-blue;
+  border-radius: $border-radius;
+  color: $fire-primary-blue;
+  margin: 0 2rem;
+
+  mat-expansion-panel {
+    background-color: $fire-box-background;
+    width: 100%;
+
+    mat-expansion-panel-header {
+      background-color: $fire-lighter-background;
+      padding: 2rem;
+      border-bottom: solid 0.1rem $fire-blue;
+      font-weight: 500;
+
+      @include media-breakpoint-down(md) {
+        font-size: 1.25rem;
+      }
+    }
+
+    .mat-expansion-panel-body {
+      padding: 0 !important;
+    }
+  }
+
+  .brigades-content {
+    margin-top: 1rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    font-size: 1.25rem;
+
+    .title {
+      text-decoration: underline;
+      font-size: 1.4rem;
+    }
+
+    .brigade {
+      @include media-breakpoint-down(md) {
+        span {
+          padding: 0;
+        }
+      }
+    }
+  }
+}
+

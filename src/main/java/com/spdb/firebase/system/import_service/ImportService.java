@@ -1,7 +1,7 @@
 package com.spdb.firebase.system.import_service;
 
-import com.spdb.firebase.domain.fire_brigade.FireBrigade;
-import com.spdb.firebase.domain.fire_brigade.FireBrigadeService;
+import com.spdb.firebase.domain.brigade.Brigade;
+import com.spdb.firebase.domain.brigade.BrigadeService;
 import com.spdb.firebase.system.SpringProfile;
 import com.spdb.firebase.system.config.StorageConfiguration;
 import lombok.RequiredArgsConstructor;
@@ -26,7 +26,7 @@ public class ImportService {
     private final Environment environment;
     private final StorageConfiguration storageConfiguration;
     private final BrigadesImporter brigadesImporter;
-    private final FireBrigadeService fireBrigadeService;
+    private final BrigadeService brigadeService;
 
     @EventListener(ApplicationReadyEvent.class)
     public void run() {
@@ -34,11 +34,11 @@ public class ImportService {
             return;
 
         log.info("[IMPORT SERVICE] Start importing fire brigades");
-        importFireBrigadesFromFiles();
+        importBrigadesFromFiles();
         log.info("[IMPORT SERVICE] End importing fire brigades");
     }
 
-    private void importFireBrigadesFromFiles() {
+    private void importBrigadesFromFiles() {
         try {
             File importDataDirectory = Paths.get(storageConfiguration.getImportDirectory()).toFile();
             FileNameExtensionFilter fileFilter = new FileNameExtensionFilter("Xlsx file", "xlsx");
@@ -48,7 +48,7 @@ public class ImportService {
             for (File file : listOfFiles) {
                 if (!file.isDirectory() && fileFilter.accept(file)) {
                     log.info("[IMPORT SERVICE] Start importing file: " + file.getName());
-                    importFireBrigadesFromXlsxToDb(file);
+                    importBrigadesFromXlsxToDb(file);
                     log.info("[IMPORT SERVICE] Finish importing file: " + file.getName());
                 }
             }
@@ -57,24 +57,24 @@ public class ImportService {
         }
     }
 
-    private void importFireBrigadesFromXlsxToDb(File file) throws IOException {
-        List<FireBrigadeXlsxModel> brigades = brigadesImporter.importData(file);
+    private void importBrigadesFromXlsxToDb(File file) throws IOException {
+        List<BrigadeXlsxModel> brigades = brigadesImporter.importData(file);
 
         log.info("[IMPORT SERVICE] Start saving fire brigades to db");
-        for (FireBrigadeXlsxModel brigade : brigades) {
-            FireBrigade brigadeToSave = prepareFireBrigade(brigade);
-            fireBrigadeService.addFireBrigade(brigadeToSave);
+        for (BrigadeXlsxModel brigade : brigades) {
+            Brigade brigadeToSave = prepareBrigade(brigade);
+            brigadeService.addBrigade(brigadeToSave);
         }
         log.info("[IMPORT SERVICE] End saving fire brigades to db");
     }
 
-    private FireBrigade prepareFireBrigade(FireBrigadeXlsxModel brigadeXlsx) {
-        return FireBrigade.builder()
+    private Brigade prepareBrigade(BrigadeXlsxModel brigadeXlsx) {
+        return Brigade.builder()
                 .name(brigadeXlsx.getName())
                 .city(brigadeXlsx.getCity())
                 .postalCode(brigadeXlsx.getPostalCode())
                 .street(brigadeXlsx.getStreet())
-                .squadAmount(randomNumber())
+                .squadMaxAmount(randomNumber())
                 .build();
     }
 

@@ -1,11 +1,59 @@
 .row.mt-5
   .container.box
-    .row.m-auto.d-flex.align-items-center.justify-content-between
+    .row.container-title
       h1(translate) FIRE_OVERVIEW.TITLE
       button.btn.btn-link.btn-text((click)="reportFire()", translate) FIRE_OVERVIEW.REPORT_FIRE
-    // it's temporary input - there will be table or sth similar
-    input.w-100(type="number")
+
+    ng-container(*ngIf="isMobile else desktopContent")
+      .row.mt-3.fire-container(*ngFor="let fire of fires")
+        mat-expansion-panel
+          mat-expansion-panel-header(collapsedHeight="10rem", expandedHeight="10rem")
+            .row.w-100
+              span.col-12 {{ ('FIRE_OVERVIEW.DATE' | translate) + ': ' + fire.date }}
+              span.col-12 {{ ('FIRE_OVERVIEW.POSTAL_CODE' | translate) + ': ' + fire.postalCode }}
+              span.col-12 {{ ('FIRE_OVERVIEW.CITY' | translate) + ': ' + fire.city }}
+              span.col-12 {{ ('FIRE_OVERVIEW.STREET' | translate) + ': ' + fire.street }}
+              span.col-12 {{ ('FIRE_OVERVIEW.SQUAD_AMOUNT' | translate) + ': ' + getSquadsAmount(fire.id) }}
+
+          .brigades-content
+            .row
+              span.title(translate) FIRE_OVERVIEW.BRIGADE_DESCRIPTION_MOBILE
+
+            .row.brigade(*ngFor="let squad of fire.squads")
+              span {{ squad.brigade.name + ', ' + squad.brigade.city + ', ' + squad.brigade.street + ', ' + squad.squadAmount }}
 
 ng-template(#reportFireContent, let-modal)
   .modal-body
     fire-report-fire([modal]="modal", (submittedEventEmitter)="onSubmittedEventEmitter()")
+
+ng-template(#desktopContent)
+  .table-header
+    .row.m-0
+      span.col-2(translate) FIRE_OVERVIEW.DATE
+      span.col-2(translate) FIRE_OVERVIEW.POSTAL_CODE
+      span.col-3(translate) FIRE_OVERVIEW.CITY
+      span.col-3(translate) FIRE_OVERVIEW.STREET
+      span.col-2(translate) FIRE_OVERVIEW.SQUAD_AMOUNT
+
+  .row.mt-3.fire-container(*ngFor="let fire of fires")
+    mat-expansion-panel
+      mat-expansion-panel-header(collapsedHeight="1rem", expandedHeight="1rem")
+        .row.w-100
+          span.col-2 {{ fire.date }}
+          span.col-2 {{ fire.postalCode }}
+          span.col-3 {{ fire.city }}
+          span.col-3 {{ fire.street }}
+          span.col-2 {{ getSquadsAmount(fire.id) }}
+
+      .brigades-content
+        .row
+          span.col-3.title(translate) FIRE_OVERVIEW.BRIGADE_NAME
+          span.col-3.title(translate) FIRE_OVERVIEW.BRIGADE_CITY
+          span.col-3.title(translate) FIRE_OVERVIEW.BRIGADE_STREET
+          span.col-3.title(translate) FIRE_OVERVIEW.BRIGADE_SQUAD_AMOUNT
+
+        .row.brigade(*ngFor="let squad of fire.squads")
+          span.col-3 {{ squad.brigade.name }}
+          span.col-3 {{ squad.brigade.city }}
+          span.col-3 {{ squad.brigade.street }}
+          span.col-3 {{ squad.squadAmount }}

@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { MatExpansionModule } from '@angular/material';
 
 import { TranslateModule } from '@ngx-translate/core';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
@@ -29,7 +30,8 @@ export const components = [
     BootstrapModule,
     NgxDatatableModule,
     NgSelectModule,
-    TextMaskModule
+    TextMaskModule,
+    MatExpansionModule
   ],
   exports: [
     CommonModule,
@@ -39,6 +41,7 @@ export const components = [
     NgxDatatableModule,
     NgSelectModule,
     TextMaskModule,
+    MatExpansionModule,
 
     ...components
   ]

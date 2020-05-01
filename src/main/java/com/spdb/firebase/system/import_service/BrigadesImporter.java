@@ -27,8 +27,8 @@ public class BrigadesImporter {
     private static final String finalisingDirectory = File.separator + "finalising" + File.separator;
     private Sheet sheet;
 
-    public List<FireBrigadeXlsxModel> importData(File file) throws IOException {
-        List<FireBrigadeXlsxModel> data;
+    public List<BrigadeXlsxModel> importData(File file) throws IOException {
+        List<BrigadeXlsxModel> data;
         String fileName = file.getName();
         String filePath = file.getPath();
         String errorDirectory = filePath.substring(0, filePath.lastIndexOf(File.separator)) + BrigadesImporter.errorDirectory;
@@ -52,14 +52,14 @@ public class BrigadesImporter {
         return data;
     }
 
-    private List<FireBrigadeXlsxModel> getDataFromXls() {
-        List<FireBrigadeXlsxModel> data = new ArrayList<>(List.of());
+    private List<BrigadeXlsxModel> getDataFromXls() {
+        List<BrigadeXlsxModel> data = new ArrayList<>(List.of());
         int firstRowToRead = 1;
         int lastRowToRead = sheet.getLastRowNum();
 
         for (int i = firstRowToRead; i <= lastRowToRead; ++i) { // not foreach loop, because we have to omit first row
             try {
-                data.add(getFireBrigadeXlsxModelFromRow(sheet.getRow(i)));
+                data.add(getBrigadeXlsxModelFromRow(sheet.getRow(i)));
             } catch (Exception e) {
                 log.warn(String.format("[ROW READ EXCEPTION]: row number %s could not be read", i));
             }
@@ -68,8 +68,8 @@ public class BrigadesImporter {
         return data;
     }
 
-    private FireBrigadeXlsxModel getFireBrigadeXlsxModelFromRow(Row row) {
-        return FireBrigadeXlsxModel.builder()
+    private BrigadeXlsxModel getBrigadeXlsxModelFromRow(Row row) {
+        return BrigadeXlsxModel.builder()
                 .name(prepareCellValue(row.getCell(0)))
                 .city(prepareCellValue(row.getCell(1)))
                 .postalCode(prepareCellValue(row.getCell(2)))

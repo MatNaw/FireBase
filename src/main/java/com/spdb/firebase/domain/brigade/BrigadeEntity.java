@@ -1,8 +1,10 @@
-package com.spdb.firebase.domain.fire_brigade;
+package com.spdb.firebase.domain.brigade;
 
+import com.spdb.firebase.domain.fire.FireBrigadeEntity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Builder
 @Getter
@@ -10,8 +12,8 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "fire_brigade")
-public class FireBrigadeEntity {
+@Table(name = "brigade")
+public class BrigadeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -28,6 +30,9 @@ public class FireBrigadeEntity {
     @Column(name = "street", nullable = false)
     private String street;
 
-    @Column(name = "squad_amount", nullable = false)
-    private Long squadAmount;
+    @Column(name = "squad_max_amount", nullable = false)
+    private Long squadMaxAmount;
+
+    @OneToMany(mappedBy = "brigade", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<FireBrigadeEntity> fires;
 }

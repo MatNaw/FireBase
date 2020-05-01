@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Builder
 @Data
-public class FireBrigadeXlsxModel {
+public class BrigadeXlsxModel {
     private String name;
     private String city;
     private String postalCode;
