@@ -15,4 +15,17 @@
   agm-map {
     height: 300px;
   }
+
+}
+
+::ng-deep .pac-container {
+  background-color: #FFF;
+  z-index: 1050;
+  position: fixed;
+  display: inline-block;
+  float: left;
+}
+
+.modal-content{
+  z-index: 20;
 }
