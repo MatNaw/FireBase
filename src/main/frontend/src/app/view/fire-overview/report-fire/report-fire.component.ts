@@ -20,42 +20,16 @@ export class ReportFireComponent implements OnInit, OnDestroy {
   @Output() submittedEventEmitter = new EventEmitter();
 
   private geoCoder;
-  firePlace: String;
 
+  firePlace: String;
   lat: number = 52.230114;
   lng: number = 21.011244;
   zoom: number = 10;
 
-  constructor(
-    private mapsAPILoader: MapsAPILoader
-  ) { }
+  constructor(private mapsAPILoader: MapsAPILoader) { }
 
   ngOnInit() {
-    this.mapsAPILoader.load().then(() => {
-      this.geoCoder = new google.maps.Geocoder;
-      this.setCurrentLocation();
-
-      let autocomplete = new google.maps.places.Autocomplete(<HTMLInputElement> document.getElementById("place"));
-      autocomplete.setComponentRestrictions({'country': ['pl']});
-      autocomplete.setFields(['geometry', 'name', 'place_id']);
-
-      autocomplete.addListener("place_changed", () => {
-        let place = autocomplete.getPlace();
-        if (place.geometry === undefined || place.geometry === null) {
-          console.error("Geometry of this place was not found");
-          return;
-        }
-        else if (place.place_id === undefined || place.place_id === null){
-          console.error("Place id was not found");
-          return;
-        }
-
-        // set place coordinates
-        this.lat = place.geometry.location.lat();
-        this.lng = place.geometry.location.lng();
-        this.setFirePlaceByPlaceId(place.place_id);
-      });
-    });
+    this.setupMapsAPI();
   }
 
   ngOnDestroy(): void {
@@ -70,6 +44,33 @@ export class ReportFireComponent implements OnInit, OnDestroy {
     this.lat = position.coords.lat;
     this.lng = position.coords.lng;
     this.setFirePlaceAddress(this.lat, this.lng);
+  }
+
+  private setupMapsAPI () {
+    this.mapsAPILoader.load().then(() => {
+      this.geoCoder = new google.maps.Geocoder;
+      this.setCurrentLocation();
+
+      let autocomplete = new google.maps.places.Autocomplete(<HTMLInputElement> document.getElementById("place"));
+      autocomplete.setComponentRestrictions({'country': ['pl']});
+      autocomplete.setFields(['geometry', 'name', 'place_id']);
+
+      autocomplete.addListener("place_changed", () => {
+        let place = autocomplete.getPlace();
+        if (place.geometry === undefined || place.geometry === null) {
+          console.error("Geometry of this place was not found");
+          return;
+        } else if (place.place_id === undefined || place.place_id === null){
+          console.error("Place id was not found");
+          return;
+        }
+
+        // set place coordinates
+        this.lat = place.geometry.location.lat();
+        this.lng = place.geometry.location.lng();
+        this.setFirePlaceByPlaceId(place.place_id);
+      });
+    });
   }
 
   private setCurrentLocation() {
@@ -87,12 +88,10 @@ export class ReportFireComponent implements OnInit, OnDestroy {
       if (status === 'OK') {
         if (results[0]) {
           this.firePlace = results[0].formatted_address;
-        }
-        else {
+        } else {
           console.error('No results found for latitude: %s and longitude: %s', latitude, longitude);
         }
-      }
-      else {
+      } else {
         console.error('GeoCoder failed, response status: %s' + status);
       }
     });
@@ -103,12 +102,10 @@ export class ReportFireComponent implements OnInit, OnDestroy {
       if (status === 'OK') {
         if (results[0]) {
           this.firePlace = results[0].formatted_address;
-        }
-        else {
+        } else {
           console.error('No results found for this placeId: %s', placeId);
         }
-      }
-      else {
+      } else {
         console.error('GeoCoder failed, response status: %s' + status);
       }
     });
