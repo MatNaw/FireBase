@@ -17,7 +17,8 @@ import { FireOverviewService } from '@app/view/fire-overview/fire-overview.servi
     SharedModule,
     FireOverviewRoutingModule,
     AgmCoreModule.forRoot({
-      apiKey: environment.google.googleApiKey
+      apiKey: environment.google.googleApiKey,
+      libraries: ["places"]
     })
   ],
   providers: [
