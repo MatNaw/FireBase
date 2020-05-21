@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { first } from 'rxjs/operators';
 
 import { FireModel } from '@app/view/fire-overview/models/fire.model';
@@ -16,5 +16,11 @@ export class FireOverviewService {
   getAllActiveFires(): Observable<FireModel[]> {
     return this.httpClient.get<FireModel[]>(`${FireOverviewService.URL_PREFIX}/active`)
       .pipe(first());
+  }
+
+  reportFire(): Observable<any> {
+    // todo: report fire
+    console.log('add request to BE');
+    return of();
   }
 }

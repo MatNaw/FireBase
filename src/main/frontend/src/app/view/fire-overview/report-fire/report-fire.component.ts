@@ -8,6 +8,7 @@ import {
 } from '@angular/core';
 import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { MapsAPILoader } from "@agm/core";
+import { FireOverviewService } from '@app/view/fire-overview/fire-overview.service';
 
 @Component({
   selector: 'fire-report-fire',
@@ -22,11 +23,12 @@ export class ReportFireComponent implements OnInit, OnDestroy {
   private geoCoder;
 
   firePlace: String;
+  numberOfBrigades: number = 0;
   lat: number = 52.230114;
   lng: number = 21.011244;
   zoom: number = 10;
 
-  constructor(private mapsAPILoader: MapsAPILoader) { }
+  constructor(private fireOverviewService: FireOverviewService, private mapsAPILoader: MapsAPILoader) { }
 
   ngOnInit() {
     this.setupMapsAPI();
@@ -34,6 +36,10 @@ export class ReportFireComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.submittedEventEmitter.emit();
+  }
+
+  onSubmit() {
+    this.fireOverviewService.reportFire().subscribe();
   }
 
   cancel() {

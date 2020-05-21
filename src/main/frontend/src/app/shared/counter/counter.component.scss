@@ -1,0 +1,42 @@
+@import "~styles/shared";
+
+.counter_container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  border-radius: $border-radius;
+  border: solid $grey 1px;
+
+  input[type=number]::-webkit-inner-spin-button,
+  input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    appearance: none;
+    margin: 0;
+  }
+
+  input[type=number] {
+    border-left: solid $grey 1px;
+    border-right: solid $grey 1px;
+    border-top: none;
+    border-bottom: none;
+    -moz-appearance: textfield;
+    outline: 0;
+
+    text-align: center;
+  }
+
+  button {
+    width: 3.5rem;
+    border-radius: $border-radius;
+    background: $white;
+    border: none;
+    outline: 0;
+    color: $grey;
+
+    &:hover:not(:disabled) {
+      border: solid $fire-primary-blue .05rem;
+      font-size: 1.25rem;
+      font-weight: bold;
+    }
+  }
+}
