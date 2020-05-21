@@ -4,9 +4,7 @@ import com.spdb.firebase.domain.fire.FireService;
 import com.spdb.firebase.system.Endpoint;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -25,6 +23,16 @@ public class FireController {
                 fireService.findAllActiveFires().stream()
                 .map(fireMapper::toFireDto)
                 .collect(Collectors.toList())
+        );
+    }
+
+    @RequestMapping(value = "/report-fire", method = RequestMethod.POST)
+    public ResponseEntity<FireDto> insertFireReport(@RequestParam("city") String city,
+                                                    @RequestParam("postal_code") String postal_code,
+                                                    @RequestParam("street") String street) {
+        return ResponseEntity.ok(
+                fireMapper.toFireDto(
+                        fireService.addActiveFire(city, postal_code, street))
         );
     }
 }
