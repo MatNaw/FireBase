@@ -2,7 +2,6 @@ package com.spdb.firebase.domain.fire;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -11,6 +10,7 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class FireService {
+    private final FireBrigadeService fireBrigadeService;
     private final FireRepository fireRepository;
     private final FireEntityMapper fireEntityMapper;
 
@@ -25,16 +25,20 @@ public class FireService {
         return fireEntity != null ? fireEntityMapper.toFire(fireEntity) : null;
     }
 
-    public Fire addActiveFire(@RequestParam("city") String city,
-                              @RequestParam("postal_code") String postal_code,
-                              @RequestParam("street") String street) {
+    public Fire addActiveFire(String city,
+                              String postalCode,
+                              String street,
+                              Long brigadesNumber) {
+
+        List<FireBrigadeEntity> fireBrigades = fireBrigadeService.getFireBrigades(brigadesNumber);
 
         FireEntity fireEntity = FireEntity.builder()
                 .city(city)
-                .postalCode(postal_code)
+                .postalCode(postalCode)
                 .street(street)
                 .date(LocalDate.now())
                 .status(Status.ACTIVE)
+                .brigades(fireBrigades)
                 .build();
         return findFireById(fireRepository.save(fireEntity).getId());
     }

@@ -29,10 +29,11 @@ public class FireController {
     @RequestMapping(value = "/report-fire", method = RequestMethod.POST)
     public ResponseEntity<FireDto> insertFireReport(@RequestParam("city") String city,
                                                     @RequestParam("postal_code") String postal_code,
-                                                    @RequestParam("street") String street) {
+                                                    @RequestParam("street") String street,
+                                                    @RequestParam("brigades_number") Long brigadesNumber) {
         return ResponseEntity.ok(
                 fireMapper.toFireDto(
-                        fireService.addActiveFire(city, postal_code, street))
+                        fireService.addActiveFire(city, postal_code, street, brigadesNumber))
         );
     }
 }
