@@ -1,6 +1,5 @@
 package com.spdb.firebase.presentation.fire;
 
-import com.spdb.firebase.domain.fire.Squad;
 import com.spdb.firebase.domain.fire.Status;
 import lombok.Builder;
 import lombok.Getter;

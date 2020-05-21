@@ -26,14 +26,15 @@ public class FireController {
         );
     }
 
-    @RequestMapping(value = "/report-fire", method = RequestMethod.POST)
-    public ResponseEntity<FireDto> insertFireReport(@RequestParam("city") String city,
-                                                    @RequestParam("postal_code") String postal_code,
-                                                    @RequestParam("street") String street,
-                                                    @RequestParam("brigades_number") Long brigadesNumber) {
+    @PostMapping("/report")
+    public ResponseEntity<FireDto> getFireReport(@RequestBody FireRequestDto fireRequestDto) {
         return ResponseEntity.ok(
                 fireMapper.toFireDto(
-                        fireService.addActiveFire(city, postal_code, street, brigadesNumber))
+                        fireService.addActiveFire(
+                                fireRequestDto.getCity(),
+                                fireRequestDto.getPostalCode(),
+                                fireRequestDto.getStreet(),
+                                fireRequestDto.getBrigadesNumber()))
         );
     }
 }
