@@ -2,6 +2,7 @@ package com.spdb.firebase.domain.brigade;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -12,12 +13,14 @@ public class BrigadeService {
     private final BrigadeRepository brigadeRepository;
     private final BrigadeEntityMapper brigadeEntityMapper;
 
+    @Transactional
     public List<Brigade> findAllBrigades() {
         return brigadeRepository.findAll().stream()
                 .map(brigadeEntityMapper::toBrigade)
                 .collect(Collectors.toList());
     }
 
+    @Transactional
     public Long addBrigade(Brigade brigade) {
         BrigadeEntity brigadeEntity = brigadeEntityMapper.toBrigadeEntity(brigade);
         return brigadeRepository.save(brigadeEntity).getId();

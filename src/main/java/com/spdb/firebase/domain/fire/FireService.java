@@ -1,7 +1,9 @@
 package com.spdb.firebase.domain.fire;
 
+import com.spdb.firebase.system.exception.BusinessException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -14,17 +16,14 @@ public class FireService {
     private final FireRepository fireRepository;
     private final FireEntityMapper fireEntityMapper;
 
+    @Transactional
     public List<Fire> findAllActiveFires() {
         return fireRepository.findAllByStatus(Status.ACTIVE).stream()
                 .map(fireEntityMapper::toFire)
                 .collect(Collectors.toList());
     }
 
-    public Fire findFireById (Long id) {
-        FireEntity fireEntity = fireRepository.findById(id).orElse(null);
-        return fireEntity != null ? fireEntityMapper.toFire(fireEntity) : null;
-    }
-
+    @Transactional
     public Fire addActiveFire(String city,
                               String postalCode,
                               String street,
@@ -41,5 +40,11 @@ public class FireService {
                 .brigades(fireBrigades)
                 .build();
         return findFireById(fireRepository.save(fireEntity).getId());
+    }
+
+    Fire findFireById (Long id) {
+        return fireRepository.findById(id)
+                .map(fireEntityMapper::toFire)
+                .orElseThrow(() -> new BusinessException("Error - fire does not exist"));
     }
 }
