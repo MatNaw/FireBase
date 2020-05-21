@@ -1,7 +1,9 @@
 package com.spdb.firebase.system.import_service;
 
+import com.google.maps.model.GeocodingResult;
 import com.spdb.firebase.domain.brigade.Brigade;
 import com.spdb.firebase.domain.brigade.BrigadeService;
+import com.spdb.firebase.system.GoogleMapsApiService;
 import com.spdb.firebase.system.SpringProfile;
 import com.spdb.firebase.system.config.StorageConfiguration;
 import lombok.RequiredArgsConstructor;
@@ -27,6 +29,7 @@ public class ImportService {
     private final StorageConfiguration storageConfiguration;
     private final BrigadesImporter brigadesImporter;
     private final BrigadeService brigadeService;
+    private final GoogleMapsApiService googleMapsApiService;
 
     @EventListener(ApplicationReadyEvent.class)
     public void run() {
@@ -65,14 +68,29 @@ public class ImportService {
             Brigade brigadeToSave = prepareBrigade(brigade);
             brigadeService.addBrigade(brigadeToSave);
         }
+        googleMapsApiService.closeGeoApiContext();
         log.info("[IMPORT SERVICE] End saving fire brigades to db");
     }
 
     private Brigade prepareBrigade(BrigadeXlsxModel brigadeXlsx) {
+        Double latitude = 0D;
+        Double longitude = 0D;
+        GeocodingResult[] geocodingResults = googleMapsApiService.getLatitudeLongitude(
+                brigadeXlsx.getCity(),
+                brigadeXlsx.getPostalCode(),
+                brigadeXlsx.getStreet());
+
+        if(geocodingResults != null && geocodingResults.length > 0){
+            latitude = geocodingResults[0].geometry.location.lat;
+            longitude = geocodingResults[0].geometry.location.lng;
+        }
+
         return Brigade.builder()
                 .name(brigadeXlsx.getName())
                 .city(brigadeXlsx.getCity())
                 .postalCode(brigadeXlsx.getPostalCode())
+                .latitude(latitude)
+                .longitude(longitude)
                 .street(brigadeXlsx.getStreet())
                 .squadMaxAmount(randomNumber())
                 .build();

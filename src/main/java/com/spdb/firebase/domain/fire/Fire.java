@@ -15,6 +15,8 @@ public class Fire {
     private String city;
     private String postalCode;
     private String street;
+    private Double latitude;
+    private Double longitude;
     private LocalDate date;
     private Status status;
     private List<Squad> squads;

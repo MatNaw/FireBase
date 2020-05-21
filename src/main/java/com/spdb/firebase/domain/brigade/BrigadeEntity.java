@@ -30,6 +30,12 @@ public class BrigadeEntity {
     @Column(name = "street", nullable = false)
     private String street;
 
+    @Column(name = "latitude", nullable = false)
+    private Double latitude;
+
+    @Column(name = "longitude", nullable = false)
+    private Double longitude;
+
     @Column(name = "squad_max_amount", nullable = false)
     private Long squadMaxAmount;
 

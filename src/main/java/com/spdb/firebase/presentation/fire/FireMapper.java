@@ -21,6 +21,8 @@ public class FireMapper {
                 .postalCode(fire.getPostalCode())
                 .city(fire.getCity())
                 .street(fire.getStreet())
+                .latitude(fire.getLatitude())
+                .longitude(fire.getLongitude())
                 .status(fire.getStatus())
                 .squads(squadsDto(fire.getSquads()))
                 .build();

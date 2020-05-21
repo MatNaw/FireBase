@@ -42,7 +42,7 @@ public class FireService {
         return findFireById(fireRepository.save(fireEntity).getId());
     }
 
-    Fire findFireById (Long id) {
+    private Fire findFireById (Long id) {
         return fireRepository.findById(id)
                 .map(fireEntityMapper::toFire)
                 .orElseThrow(() -> new BusinessException("Error - fire does not exist"));

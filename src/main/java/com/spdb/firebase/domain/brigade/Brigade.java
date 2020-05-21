@@ -13,5 +13,7 @@ public class Brigade {
     private String city;
     private String postalCode;
     private String street;
+    private Double latitude;
+    private Double longitude;
     private Long squadMaxAmount;
 }

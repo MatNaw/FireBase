@@ -16,6 +16,8 @@ public class FireDto {
     private String city;
     private String postalCode;
     private String street;
+    private Double latitude;
+    private Double longitude;
     private LocalDate date;
     private Status status;
     private List<SquadDto> squads;

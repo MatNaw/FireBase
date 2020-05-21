@@ -27,7 +27,7 @@ public class FireController {
     }
 
     @PostMapping("/report")
-    public ResponseEntity<FireDto> getFireReport(@RequestBody FireRequestDto fireRequestDto) {
+    public ResponseEntity<FireDto> getFireRequest(@RequestBody FireRequestDto fireRequestDto) {
         return ResponseEntity.ok(
                 fireMapper.toFireDto(
                         fireService.addActiveFire(

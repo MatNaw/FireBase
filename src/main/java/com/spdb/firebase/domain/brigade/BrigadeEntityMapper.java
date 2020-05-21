@@ -12,6 +12,8 @@ public class BrigadeEntityMapper {
                 .city(brigadeEntity.getCity())
                 .postalCode(brigadeEntity.getPostalCode())
                 .street(brigadeEntity.getStreet())
+                .latitude(brigadeEntity.getLatitude())
+                .longitude(brigadeEntity.getLongitude())
                 .squadMaxAmount(brigadeEntity.getSquadMaxAmount())
                 .build();
     }
@@ -23,6 +25,8 @@ public class BrigadeEntityMapper {
                 .city(brigade.getCity())
                 .postalCode(brigade.getPostalCode())
                 .street(brigade.getStreet())
+                .latitude(brigade.getLatitude())
+                .longitude(brigade.getLongitude())
                 .squadMaxAmount(brigade.getSquadMaxAmount())
                 .build();
     }

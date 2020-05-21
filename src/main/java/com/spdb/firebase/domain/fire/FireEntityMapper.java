@@ -19,6 +19,8 @@ public class FireEntityMapper {
                 .postalCode(fireEntity.getPostalCode())
                 .city(fireEntity.getCity())
                 .street(fireEntity.getStreet())
+                .latitude(fireEntity.getLatitude())
+                .longitude(fireEntity.getLongitude())
                 .status(fireEntity.getStatus())
                 .squads(squads(fireEntity.getBrigades()))
                 .build();

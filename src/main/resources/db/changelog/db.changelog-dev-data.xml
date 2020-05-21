@@ -8,8 +8,8 @@
         <sql>
             DELETE FROM brigade;
 
-            INSERT INTO brigade (name, city, postal_code, street, squad_max_amount) VALUES ('Jednostka 1', 'Warszawa', '02-236', 'Jagiellońska', 5);
-            INSERT INTO brigade (name, city, postal_code, street, squad_max_amount) VALUES ('Jednostka 2', 'Warszawa', '01-543', 'Krzywoustego', 7);
+            INSERT INTO brigade (name, city, postal_code, street, latitude, longitude, squad_max_amount) VALUES ('Jednostka 1', 'Warszawa', '02-236', 'Jagiellońska', 52.269101, 21.019250, 5);
+            INSERT INTO brigade (name, city, postal_code, street, latitude, longitude, squad_max_amount) VALUES ('Jednostka 2', 'Warszawa', '01-543', 'Krzywoustego', 52.202457, 20.859848, 7);
         </sql>
     </changeSet>
 
@@ -17,8 +17,8 @@
         <sql>
             DELETE FROM fire;
 
-            INSERT INTO fire (city, postal_code, street, date, status) VALUES ('Warszawa', '02-236', 'Broniewskiego', '2020-04-19', 'ACTIVE');
-            INSERT INTO fire (city, postal_code, street, date, status) VALUES ('Warszawa', '01-123', 'Duracza', '2020-04-20', 'ACTIVE');
+            INSERT INTO fire (city, postal_code, street, latitude, longitude, date, status) VALUES ('Warszawa', '02-236', 'Broniewskiego', 52.268234, 20.958604, '2020-04-19', 'ACTIVE');
+            INSERT INTO fire (city, postal_code, street, latitude, longitude, date, status) VALUES ('Warszawa', '01-123', 'Duracza', 52.272405, 20.956834, '2020-04-20', 'ACTIVE');
         </sql>
     </changeSet>
 
