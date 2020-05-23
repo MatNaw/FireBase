@@ -21,17 +21,6 @@ export class CounterComponent {
     this.valueChange.emit(this.value);
   }
 
-  decrement() {
-    if (this.isDecrementingAvailable()) {
-      --this.value;
-      this.onChange();
-    }
-  }
-
-  isDecrementingAvailable() {
-    return this.minValue === undefined || this.value > this.minValue;
-  }
-
   increment() {
     if (this.isIncrementingAvailable()) {
       ++this.value;
@@ -39,8 +28,19 @@ export class CounterComponent {
     }
   }
 
+  decrement() {
+    if (this.isDecrementingAvailable()) {
+      --this.value;
+      this.onChange();
+    }
+  }
+
   isIncrementingAvailable() {
     return this.maxValue === undefined || this.value < this.maxValue;
+  }
+
+  isDecrementingAvailable() {
+    return this.minValue === undefined || this.value > this.minValue;
   }
 
 }
