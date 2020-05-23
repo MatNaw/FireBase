@@ -16,6 +16,11 @@
           [(ngModel)] = "firePlace",
           placeholder = "{{ 'REPORT_FIRE.SET_FIRE_PLACE' | translate }}")
 
+    fire-counter(label='REPORT_FIRE.NUMBER_OF_BRIGADES',
+      [minValue]="0",
+      [maxValue]="100",
+      [(value)]="numberOfBrigades")
+
     .row
       .map-content
         agm-map([latitude] = "lat",
@@ -26,3 +31,6 @@
           agm-marker([latitude] = "lat",
             [longitude] = "lng",
             [agmFitBounds] = "true")
+
+    .row.justify-content-end(style="padding: 0 15px;")
+      button.btn.btn-link.btn-text(type="submit", (click)="onSubmit()", translate) REPORT_FIRE.REPORT

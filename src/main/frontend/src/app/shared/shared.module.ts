@@ -12,11 +12,13 @@ import { BootstrapModule } from '@app/shared/bootstrap.module';
 import { ValidationErrorsComponent } from '@app/shared/validation/validation-errors.component';
 import { ValidationErrorComponent } from '@app/shared/validation/validation-error.component';
 import { PopupComponent } from '@app/shared/popup/popup.component';
+import { CounterComponent } from '@app/shared/counter/counter.component';
 
 export const components = [
   ValidationErrorsComponent,
   ValidationErrorComponent,
-  PopupComponent
+  PopupComponent,
+  CounterComponent
 ];
 
 @NgModule({
