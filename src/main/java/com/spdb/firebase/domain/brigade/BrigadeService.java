@@ -10,16 +10,15 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class BrigadeService {
     private final BrigadeRepository brigadeRepository;
-    private final BrigadeEntityMapper brigadeEntityMapper;
 
     public List<Brigade> findAllBrigades() {
         return brigadeRepository.findAll().stream()
-                .map(brigadeEntityMapper::toBrigade)
+                .map(Brigade::fromBrigadeEntity)
                 .collect(Collectors.toList());
     }
 
     public Long addBrigade(Brigade brigade) {
-        BrigadeEntity brigadeEntity = brigadeEntityMapper.toBrigadeEntity(brigade);
+        BrigadeEntity brigadeEntity = Brigade.toBrigadeEntity(brigade);
         return brigadeRepository.save(brigadeEntity).getId();
     }
 }

@@ -18,13 +18,12 @@ public class BrigadeController {
 
     static final String BRIGADE_URI = Endpoint.API_ROOT + "/brigade";
     private final BrigadeService brigadeService;
-    private final BrigadeMapper brigadeMapper;
 
     @GetMapping
     public ResponseEntity<List<BrigadeDto>> getAllBrigades() {
         return ResponseEntity.ok(
                 brigadeService.findAllBrigades().stream()
-                        .map(brigadeMapper::toBrigadeDto)
+                        .map(BrigadeDto::fromBrigade)
                         .collect(Collectors.toList())
         );
     }

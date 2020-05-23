@@ -14,4 +14,26 @@ public class Brigade {
     private String postalCode;
     private String street;
     private Long squadMaxAmount;
+
+    public static Brigade fromBrigadeEntity(BrigadeEntity brigadeEntity) {
+        return Brigade.builder()
+                .id(brigadeEntity.getId())
+                .name(brigadeEntity.getName())
+                .city(brigadeEntity.getCity())
+                .postalCode(brigadeEntity.getPostalCode())
+                .street(brigadeEntity.getStreet())
+                .squadMaxAmount(brigadeEntity.getSquadMaxAmount())
+                .build();
+    }
+
+    public static BrigadeEntity toBrigadeEntity(Brigade brigade) {
+        return BrigadeEntity.builder()
+                .id(brigade.getId())
+                .name(brigade.getName())
+                .city(brigade.getCity())
+                .postalCode(brigade.getPostalCode())
+                .street(brigade.getStreet())
+                .squadMaxAmount(brigade.getSquadMaxAmount())
+                .build();
+    }
 }
