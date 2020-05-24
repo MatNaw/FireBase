@@ -22,22 +22,6 @@ public class FireService {
                 .collect(Collectors.toList());
     }
 
-    @Transactional
-    public Fire addActiveFire(String city,
-                              String postalCode,
-                              String street,
-                              List<FireBrigadeEntity> fireBrigades) {
-        FireEntity fireEntity = FireEntity.builder()
-                .city(city)
-                .postalCode(postalCode)
-                .street(street)
-                .date(LocalDate.now())
-                .status(Status.ACTIVE)
-                .brigades(fireBrigades)
-                .build();
-        return findFireById(fireRepository.save(fireEntity).getId());
-    }
-
     private Fire findFireById (Long id) {
         return fireRepository.findById(id)
                 .map(Fire::fromFireEntity)
