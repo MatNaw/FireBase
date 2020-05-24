@@ -29,8 +29,10 @@ public class GoogleMapsApiService {
         GeocodingResult[] geocodingResults = getAddressGeocoding(city, postalCode, street);
 
         if(geocodingResults != null && geocodingResults.length > 0){
-            latitude = geocodingResults[0].geometry.location.lat;
-            longitude = geocodingResults[0].geometry.location.lng;
+            if(geocodingResults[0].geometry != null) {
+                latitude = geocodingResults[0].geometry.location.lat;
+                longitude = geocodingResults[0].geometry.location.lng;
+            }
         }
 
         ArrayList<Double> latitudeLongitude = new ArrayList<>();

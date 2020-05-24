@@ -22,7 +22,7 @@
             <column name="street" type="VARCHAR(255)">
                 <constraints nullable="false"/>
             </column>
-			<column name="latitude" type="DOUBLE PRECISION)">
+			<column name="latitude" type="DOUBLE PRECISION">
                 <constraints nullable="false"/>
             </column>
 			<column name="longitude" type="DOUBLE PRECISION">
@@ -48,7 +48,7 @@
             <column name="street" type="VARCHAR(255)">
                 <constraints nullable="false"/>
             </column>
-			<column name="latitude" type="DOUBLE PRECISION)">
+			<column name="latitude" type="DOUBLE PRECISION">
                 <constraints nullable="false"/>
             </column>
 			<column name="longitude" type="DOUBLE PRECISION">
