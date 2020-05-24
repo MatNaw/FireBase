@@ -9,6 +9,7 @@ export class CounterComponent {
 
   @Input() label: string;
   @Input() value: number;
+  @Input() disabled: boolean;
 
   @Input() minValue: number;
   @Input() maxValue: number;
@@ -36,11 +37,11 @@ export class CounterComponent {
   }
 
   isIncrementingAvailable() {
-    return this.maxValue === undefined || this.value < this.maxValue;
+    return !this.disabled && (this.maxValue === undefined || this.value < this.maxValue);
   }
 
   isDecrementingAvailable() {
-    return this.minValue === undefined || this.value > this.minValue;
+    return !this.disabled && (this.minValue === undefined || this.value > this.minValue);
   }
 
 }

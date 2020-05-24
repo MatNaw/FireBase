@@ -67,6 +67,28 @@ h1 {
   }
 }
 
+.btn-cancel {
+  padding: 1rem;
+  color: $fire-primary-blue;
+  background-color: $white;
+  border: 0.05rem solid $fire-primary-blue;
+  border-radius: 4px;
+
+  cursor: pointer;
+
+  font-size: 1.5rem;
+  font-weight: bold;
+
+  &.btn {
+    text-decoration: none;
+
+    &:hover {
+      color: $fire-primary-blue;
+      background-color: $fire-blue;
+    }
+  }
+}
+
 .box {
   @include box()
 }
