@@ -15,13 +15,12 @@ import java.util.stream.Collectors;
 public class FireController {
     static final String FIRE_URI = Endpoint.API_ROOT + "/fire";
     private final FireService fireService;
-    private final FireMapper fireMapper;
 
     @GetMapping("/active")
     public ResponseEntity<List<FireDto>> getAllActiveFires() {
         return ResponseEntity.ok(
                 fireService.findAllActiveFires().stream()
-                .map(fireMapper::toFireDto)
+                .map(FireDto::fromFire)
                 .collect(Collectors.toList())
         );
     }

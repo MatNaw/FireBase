@@ -1,0 +1,9 @@
+.row.mt-2.align-items-center
+  .col-md-5.col-sm-12
+    div(translate) {{ label }}
+
+  .col-md-7.col-sm-12
+    div.counter_container
+      button(type="button", (click)="decrement()", [disabled]="!isDecrementingAvailable()") -
+      input(type="number", [(ngModel)]="value", (ngModelChange)="onChange()", [disabled]="disabled")
+      button(type="button", (click)="increment()", [disabled]="!isIncrementingAvailable()") +

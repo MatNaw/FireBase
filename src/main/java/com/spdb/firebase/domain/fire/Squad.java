@@ -11,4 +11,18 @@ import lombok.Setter;
 public class Squad {
     private Brigade brigade;
     private Long squadAmount;
+
+    public static Squad fromFireBrigadeEntity(FireBrigadeEntity fireBrigadeEntity) {
+        return Squad.builder()
+                .brigade(Brigade.fromBrigadeEntity(fireBrigadeEntity.getBrigade()))
+                .squadAmount(fireBrigadeEntity.getSquadAmount())
+                .build();
+    }
+
+    public static FireBrigadeEntity toFireBrigadeEntity(Squad squad) {
+        return FireBrigadeEntity.builder()
+                .brigade(Brigade.toBrigadeEntity(squad.getBrigade()))
+                .squadAmount(squad.getSquadAmount())
+                .build();
+    }
 }

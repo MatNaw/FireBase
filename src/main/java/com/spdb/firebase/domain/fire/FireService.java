@@ -14,12 +14,11 @@ import java.util.stream.Collectors;
 public class FireService {
     private final FireBrigadeService fireBrigadeService;
     private final FireRepository fireRepository;
-    private final FireEntityMapper fireEntityMapper;
 
     @Transactional
     public List<Fire> findAllActiveFires() {
         return fireRepository.findAllByStatus(Status.ACTIVE).stream()
-                .map(fireEntityMapper::toFire)
+                .map(Fire::fromFireEntity)
                 .collect(Collectors.toList());
     }
 

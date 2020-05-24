@@ -8,13 +8,20 @@
 
   .modal-content
     .row.align-items-center
-      .col-md-3.col-sm-12
+      .col-md-5.col-sm-12
         label(for="place", translate) REPORT_FIRE.FIRE_PLACE
-      .col-md-9.col-sm-12
+      .col-md-7.col-sm-12
         input#place(type = "text",
           #place = "ngModel",
           [(ngModel)] = "firePlace",
+          [disabled]="isCustomizeSquadsVisible",
           placeholder = "{{ 'REPORT_FIRE.SET_FIRE_PLACE' | translate }}")
+
+    fire-counter(label='REPORT_FIRE.NUMBER_OF_BRIGADES',
+      [minValue]="0",
+      [maxValue]="100",
+      [disabled]="isCustomizeSquadsVisible",
+      [(value)]="numberOfSquads")
 
     .row
       .map-content
@@ -26,3 +33,18 @@
           agm-marker([latitude] = "lat",
             [longitude] = "lng",
             [agmFitBounds] = "true")
+
+    .row.justify-content-end(style="padding: 0 15px;")
+      button.btn.btn-link.btn-text(*ngIf="!isCustomizeSquadsVisible", type="button", (click)="reportFire()", translate) REPORT_FIRE.REPORT
+
+    span(*ngIf="isCustomizeSquadsVisible")
+      span(*ngFor="let squad of squads", style="padding: 0 15px;")
+        fire-counter([label]="getBrigadeDescription(squad.brigade)",
+          [minValue]="0",
+          [maxValue]="remainingNumberOfSquads() + squad.squadAmount",
+          [(value)]="squad.squadAmount")
+      //  todo: maxValue should depends on current number of brigades and max possibility of them
+
+      .row.justify-content-between(style="padding: 0 15px;")
+        button.btn.btn-link.btn-cancel(type="button", (click)="cancel()", translate) ALL.CANCEL
+        button.btn.btn-link.btn-text(type="submit", (click)="onSubmit()", translate) REPORT_FIRE.ACCEPT
