@@ -51,7 +51,6 @@ export class ReportFireComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
-    console.log(this.squads);
     this.fireOverviewService.acceptFire().subscribe();
   }
 
@@ -132,5 +131,13 @@ export class ReportFireComponent implements OnInit, OnDestroy {
 
   getBrigadeDescription(brigade: BrigadeModel) {
     return `${brigade.name.toUpperCase()}: ${brigade.postalCode}, ${brigade.city}, ${brigade.street}`;
+  }
+
+  remainingNumberOfBrigades() {
+    const currentCount = this.squads
+      .map(it => it.squadAmount)
+      .reduce((a, b) => a + b);
+
+    return this.numberOfBrigades - currentCount;
   }
 }

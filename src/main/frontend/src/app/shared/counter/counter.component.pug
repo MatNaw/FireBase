@@ -5,5 +5,5 @@
   .col-md-7.col-sm-12
     div.counter_container
       button(type="button", (click)="decrement()", [disabled]="!isDecrementingAvailable()") -
-      input(type="number", [(ngModel)]="value", (ngModelChange)="onChange()")
+      input(type="number", [(ngModel)]="value", (ngModelChange)="onChange()", [disabled]="disabled")
       button(type="button", (click)="increment()", [disabled]="!isIncrementingAvailable()") +
