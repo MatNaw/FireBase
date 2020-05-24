@@ -68,7 +68,6 @@ public class ImportService {
             Brigade brigadeToSave = prepareBrigade(brigade);
             brigadeService.addBrigade(brigadeToSave);
         }
-        googleMapsApiService.closeGeoApiContext();
         log.info("[IMPORT SERVICE] End saving fire brigades to db");
     }
 

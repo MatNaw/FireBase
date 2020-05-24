@@ -1,5 +1,6 @@
 package com.spdb.firebase.domain.fire;
 
+import com.spdb.firebase.domain.brigade.BrigadeEntity;
 import com.spdb.firebase.system.exception.BusinessException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -12,7 +13,6 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class FireService {
-    private final FireBrigadeService fireBrigadeService;
     private final FireRepository fireRepository;
 
     @Transactional
@@ -20,23 +20,6 @@ public class FireService {
         return fireRepository.findAllByStatus(Status.ACTIVE).stream()
                 .map(Fire::fromFireEntity)
                 .collect(Collectors.toList());
-    }
-
-    @Transactional
-    public Fire processFireRequest(String city,
-                                   String postalCode,
-                                   String street,
-                                   Long brigadesNumber) {
-        List<FireBrigadeEntity> fireBrigades = fireBrigadeService.getFireBrigades(city, postalCode, street, brigadesNumber);
-        FireEntity fireEntity = FireEntity.builder()
-                .city(city)
-                .postalCode(postalCode)
-                .street(street)
-                .date(LocalDate.now())
-                .status(Status.ACTIVE)
-                .brigades(fireBrigades)
-                .build();
-        return fireEntityMapper.toFire(fireEntity);
     }
 
     @Transactional
@@ -57,7 +40,7 @@ public class FireService {
 
     private Fire findFireById (Long id) {
         return fireRepository.findById(id)
-                .map(fireEntityMapper::toFire)
+                .map(Fire::fromFireEntity)
                 .orElseThrow(() -> new BusinessException("Error - fire does not exist"));
     }
 }

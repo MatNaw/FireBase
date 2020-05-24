@@ -1,5 +1,6 @@
 package com.spdb.firebase.presentation.fire;
 
+import com.spdb.firebase.domain.fire.FireBrigadeService;
 import com.spdb.firebase.domain.fire.FireService;
 import com.spdb.firebase.system.Endpoint;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +16,7 @@ import java.util.stream.Collectors;
 public class FireController {
     static final String FIRE_URI = Endpoint.API_ROOT + "/fire";
     private final FireService fireService;
+    private final FireBrigadeService fireBrigadeService;
 
     @GetMapping("/active")
     public ResponseEntity<List<FireDto>> getAllActiveFires() {
@@ -25,15 +27,17 @@ public class FireController {
         );
     }
 
-    @PostMapping("/report")
-    public ResponseEntity<FireDto> getFireRequest(@RequestBody FireRequestDto fireRequestDto) {
+    @GetMapping("/report")
+    public ResponseEntity<List<SquadDto>> getFireRequest(@RequestParam Double latitude,
+                                                         @RequestParam Double longitude,
+                                                         @RequestParam Long brigadesNumber) {
         return ResponseEntity.ok(
-                fireMapper.toFireDto(
-                        fireService.processFireRequest(
-                                fireRequestDto.getCity(),
-                                fireRequestDto.getPostalCode(),
-                                fireRequestDto.getStreet(),
-                                fireRequestDto.getBrigadesNumber()))
+                fireBrigadeService.processFireRequest(
+                        latitude,
+                        longitude,
+                        brigadesNumber).stream()
+                .map(SquadDto::fromSquad)
+                .collect(Collectors.toList())
         );
     }
 }

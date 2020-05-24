@@ -2,9 +2,11 @@ import { BrigadeModel } from '@app/view/fire-overview/models/brigade.model';
 
 export class FireModel {
   id: number;
-  postalCode: string;
   city: string;
+  postalCode: string;
   street: string;
+  latitude: number;
+  longitude: number;
   date: Date;
   status: Status;
   squads: Squad[];
