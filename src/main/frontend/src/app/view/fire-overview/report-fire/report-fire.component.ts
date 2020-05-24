@@ -25,13 +25,13 @@ export class ReportFireComponent implements OnInit, OnDestroy {
   private geoCoder;
 
   firePlace: String;
-  numberOfBrigades: number = 0;
+  numberOfSquads: number = 0;
   public squads: SquadModel[];
   lat: number = 52.230114;
   lng: number = 21.011244;
   zoom: number = 10;
 
-  customizeBrigadesVisible = false;
+  isCustomizeSquadsVisible = false;
 
   constructor(private fireOverviewService: FireOverviewService, private mapsAPILoader: MapsAPILoader) { }
 
@@ -46,7 +46,7 @@ export class ReportFireComponent implements OnInit, OnDestroy {
   reportFire() {
     this.fireOverviewService.reportFire().subscribe(response => {
       this.squads = response;
-      this.customizeBrigadesVisible = true;
+      this.isCustomizeSquadsVisible = true;
     });
   }
 
@@ -133,11 +133,11 @@ export class ReportFireComponent implements OnInit, OnDestroy {
     return `${brigade.name.toUpperCase()}: ${brigade.postalCode}, ${brigade.city}, ${brigade.street}`;
   }
 
-  remainingNumberOfBrigades() {
+  remainingNumberOfSquads() {
     const currentCount = this.squads
       .map(it => it.squadAmount)
       .reduce((a, b) => a + b);
 
-    return this.numberOfBrigades - currentCount;
+    return this.numberOfSquads - currentCount;
   }
 }
