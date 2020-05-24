@@ -73,17 +73,13 @@ public class ImportService {
     }
 
     private Brigade prepareBrigade(BrigadeXlsxModel brigadeXlsx) {
-        Double latitude = 0D;
-        Double longitude = 0D;
-        GeocodingResult[] geocodingResults = googleMapsApiService.getLatitudeLongitude(
+        List<Double> latitudeLongitude = googleMapsApiService.getLatitudeLongitude(
                 brigadeXlsx.getCity(),
                 brigadeXlsx.getPostalCode(),
                 brigadeXlsx.getStreet());
 
-        if(geocodingResults != null && geocodingResults.length > 0){
-            latitude = geocodingResults[0].geometry.location.lat;
-            longitude = geocodingResults[0].geometry.location.lng;
-        }
+        Double latitude = latitudeLongitude.get(0);
+        Double longitude = latitudeLongitude.get(1);
 
         return Brigade.builder()
                 .name(brigadeXlsx.getName())

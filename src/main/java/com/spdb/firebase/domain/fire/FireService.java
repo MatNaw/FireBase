@@ -24,13 +24,27 @@ public class FireService {
     }
 
     @Transactional
+    public Fire processFireRequest(String city,
+                                   String postalCode,
+                                   String street,
+                                   Long brigadesNumber) {
+        List<FireBrigadeEntity> fireBrigades = fireBrigadeService.getFireBrigades(city, postalCode, street, brigadesNumber);
+        FireEntity fireEntity = FireEntity.builder()
+                .city(city)
+                .postalCode(postalCode)
+                .street(street)
+                .date(LocalDate.now())
+                .status(Status.ACTIVE)
+                .brigades(fireBrigades)
+                .build();
+        return fireEntityMapper.toFire(fireEntity);
+    }
+
+    @Transactional
     public Fire addActiveFire(String city,
                               String postalCode,
                               String street,
-                              Long brigadesNumber) {
-
-        List<FireBrigadeEntity> fireBrigades = fireBrigadeService.getFireBrigades(brigadesNumber);
-
+                              List<FireBrigadeEntity> fireBrigades) {
         FireEntity fireEntity = FireEntity.builder()
                 .city(city)
                 .postalCode(postalCode)

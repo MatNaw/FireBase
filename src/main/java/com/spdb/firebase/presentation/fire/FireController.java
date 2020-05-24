@@ -30,7 +30,7 @@ public class FireController {
     public ResponseEntity<FireDto> getFireRequest(@RequestBody FireRequestDto fireRequestDto) {
         return ResponseEntity.ok(
                 fireMapper.toFireDto(
-                        fireService.addActiveFire(
+                        fireService.processFireRequest(
                                 fireRequestDto.getCity(),
                                 fireRequestDto.getPostalCode(),
                                 fireRequestDto.getStreet(),
