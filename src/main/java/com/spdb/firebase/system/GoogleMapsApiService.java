@@ -4,26 +4,27 @@ import com.google.maps.GeoApiContext;
 import com.google.maps.GeocodingApi;
 import com.google.maps.errors.ApiException;
 import com.google.maps.model.GeocodingResult;
+import com.spdb.firebase.system.config.GoogleMapsApiServiceConfiguration;
 import com.spdb.firebase.system.exception.BusinessException;
-import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Component;
+import org.springframework.data.util.Pair;
+import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-@Component
-@Slf4j
-@NoArgsConstructor
-public class GoogleMapsApiService {
-    private static final String API_KEY = "AIzaSyAaqPB_iJm8kbJCfJHaSljjVWG_K5jrtPY";
-    private static final GeoApiContext context = new GeoApiContext.Builder()
-            .apiKey(API_KEY)
-            .build();
 
-    public List<Double> getLatitudeLongitude(String city, String postalCode, String street) {
+@Service
+@Slf4j
+@RequiredArgsConstructor
+public class GoogleMapsApiService {
+    private final GoogleMapsApiServiceConfiguration googleMapsApiServiceConfiguration;
+    private GeoApiContext context;
+
+    public Pair<Double, Double> getLatitudeLongitude(String city, String postalCode, String street) {
         Double latitude = 0D;
         Double longitude = 0D;
         GeocodingResult[] geocodingResults = getAddressGeocoding(city, postalCode, street);
@@ -34,22 +35,24 @@ public class GoogleMapsApiService {
                 longitude = geocodingResults[0].geometry.location.lng;
             }
         }
-
-        ArrayList<Double> latitudeLongitude = new ArrayList<>();
-        Collections.addAll(latitudeLongitude, latitude, longitude);
-        return latitudeLongitude;
+        return Pair.of(latitude, longitude);
     }
 
     private GeocodingResult[] getAddressGeocoding(String city, String postalCode, String street){
+        if(context == null) {
+            context = new GeoApiContext.Builder()
+                    .apiKey(googleMapsApiServiceConfiguration.getApiKey())
+                    .build();
+        }
         try {
             return GeocodingApi.geocode(context, String.format("%s,%s,%s", street, postalCode, city))
                     .await();
         } catch (final IOException ioException) {
-            throw new BusinessException("IOException caught while requesting address geocoding to Geocoding API");
+            throw new BusinessException("geocoding.ioexception");
         } catch (final InterruptedException interruptedException) {
-            throw new BusinessException("InterruptedException caught while requesting address geocoding to Geocoding API");
+            throw new BusinessException("geocoding.interruptedexception");
         } catch (final ApiException apiException) {
-            throw new BusinessException("ApiException caught while requesting address geocoding to Geocoding API");
+            throw new BusinessException("geocoding.apiexception");
         }
     }
 

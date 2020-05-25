@@ -22,10 +22,10 @@
             <column name="street" type="VARCHAR(255)">
                 <constraints nullable="false"/>
             </column>
-	    <column name="latitude" type="DOUBLE PRECISION">
+			<column name="latitude" type="DOUBLE PRECISION">
                 <constraints nullable="false"/>
             </column>
-	    <column name="longitude" type="DOUBLE PRECISION">
+			<column name="longitude" type="DOUBLE PRECISION">
                 <constraints nullable="false"/>
             </column>
             <column name="squad_max_amount" type="INTEGER">
@@ -48,10 +48,10 @@
             <column name="street" type="VARCHAR(255)">
                 <constraints nullable="false"/>
             </column>
-	    <column name="latitude" type="DOUBLE PRECISION">
+			<column name="latitude" type="DOUBLE PRECISION">
                 <constraints nullable="false"/>
             </column>
-	    <column name="longitude" type="DOUBLE PRECISION">
+			<column name="longitude" type="DOUBLE PRECISION">
                 <constraints nullable="false"/>
             </column>
             <column name="date" type="DATE">

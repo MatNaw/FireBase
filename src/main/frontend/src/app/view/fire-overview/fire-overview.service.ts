@@ -33,6 +33,7 @@ export class FireOverviewService {
   }
 
   acceptFire(): Observable<any> {
+    // todo: accept fire
     console.log('accept fire');
     return of();
   }

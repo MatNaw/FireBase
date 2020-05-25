@@ -1,6 +1,5 @@
 package com.spdb.firebase.system.import_service;
 
-import com.google.maps.model.GeocodingResult;
 import com.spdb.firebase.domain.brigade.Brigade;
 import com.spdb.firebase.domain.brigade.BrigadeService;
 import com.spdb.firebase.system.GoogleMapsApiService;
@@ -11,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.core.env.Environment;
+import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Service;
 
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -72,13 +72,13 @@ public class ImportService {
     }
 
     private Brigade prepareBrigade(BrigadeXlsxModel brigadeXlsx) {
-        List<Double> latitudeLongitude = googleMapsApiService.getLatitudeLongitude(
+        Pair<Double, Double> latitudeLongitude = googleMapsApiService.getLatitudeLongitude(
                 brigadeXlsx.getCity(),
                 brigadeXlsx.getPostalCode(),
                 brigadeXlsx.getStreet());
 
-        Double latitude = latitudeLongitude.get(0);
-        Double longitude = latitudeLongitude.get(1);
+        Double latitude = latitudeLongitude.getFirst();
+        Double longitude = latitudeLongitude.getSecond();
 
         return Brigade.builder()
                 .name(brigadeXlsx.getName())

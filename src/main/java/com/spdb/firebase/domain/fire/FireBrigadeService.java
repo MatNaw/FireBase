@@ -18,41 +18,24 @@ public class FireBrigadeService {
     private final BrigadeRepository brigadeRepository;
 
     @Transactional
-    public List<Squad> processFireRequest(Double latitude,
-                                          Double longitude,
-                                          Long brigadesNumber) {
+    public List<Squad> processFireRequest(Double latitude, Double longitude, Long brigadesNumber) {
         return findBrigadesClosestToFire(latitude, longitude).stream()
                 .map(Squad::fromBrigadeEntity)
                 .collect(Collectors.toList());
     }
 
     private List<BrigadeEntity> findBrigadesClosestToFire(Double latitude, Double longitude) {
-        List<BrigadeEntity> brigadeEntities = brigadeRepository.findAll();
-        List<Pair<Long, Double>> distances = new ArrayList<>();
-
-        for (BrigadeEntity brigadeEntity : brigadeEntities) {
-            distances.add(Pair.of(
-                    brigadeEntity.getId(),
-                    calculateDistance(
-                            latitude,
-                            longitude,
-                            brigadeEntity.getLatitude(),
-                            brigadeEntity.getLongitude()))
-            );
-        }
-        distances.sort(Comparator.comparing(Pair::getSecond));
-
-        List<BrigadeEntity> result = new ArrayList<>();
-        distances.subList(0, SUGGESTED_NUMBER_OF_BRIGADES).forEach(pair ->
-            brigadeRepository.findById(pair.getFirst())
-                    .map(result::add)
-                    .orElseThrow(() -> new BusinessException(
-                            "Brigade previously found in DB has not been found now, id: " + pair.getFirst()))
-        );
+        List<Pair<BrigadeEntity, Double>> distances = brigadeRepository.findAll().stream()
+                .map(it -> Pair.of(it,
+                        calculateDistance(latitude, longitude, it.getLatitude(), it.getLongitude())))
+                .sorted(Comparator.comparing(Pair::getSecond))
+                .collect(Collectors.toList());
 
         //#TODO REMOVE DEBUG CODE:
-        //result.forEach(r -> System.out.println(r.getName() + ", " + r.getSquadMaxAmount()));
-        return result;
+        //distances.subList(0, SUGGESTED_NUMBER_OF_BRIGADES).forEach(r -> System.out.println(r.getFirst().getName() + ", " + r.getSecond()));
+        return distances.subList(0, SUGGESTED_NUMBER_OF_BRIGADES).stream()
+                .map(Pair::getFirst)
+                .collect(Collectors.toList());
     }
 
     /**
@@ -64,8 +47,7 @@ public class FireBrigadeService {
      * @param long2 Longitude of the second point
      * @return Straight line distance between two coordinates (in kilometers, rounded to two decimal places)
      */
-    private Double calculateDistance(Double lat1, Double long1,
-                                     Double lat2, Double long2) {
+    private Double calculateDistance(Double lat1, Double long1, Double lat2, Double long2) {
         if ((lat1.equals(lat2)) && (long1.equals(long2))) {
             return 0D;
         }

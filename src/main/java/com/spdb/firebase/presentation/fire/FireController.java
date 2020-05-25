@@ -32,10 +32,7 @@ public class FireController {
                                                          @RequestParam Double longitude,
                                                          @RequestParam Long brigadesNumber) {
         return ResponseEntity.ok(
-                fireBrigadeService.processFireRequest(
-                        latitude,
-                        longitude,
-                        brigadesNumber).stream()
+                fireBrigadeService.processFireRequest(latitude, longitude, brigadesNumber).stream()
                 .map(SquadDto::fromSquad)
                 .collect(Collectors.toList())
         );
