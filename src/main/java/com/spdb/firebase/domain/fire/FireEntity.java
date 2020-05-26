@@ -27,6 +27,12 @@ public class FireEntity {
     @Column(name = "street", nullable = false)
     private String street;
 
+    @Column(name = "latitude", nullable = false)
+    private Double latitude;
+
+    @Column(name = "longitude", nullable = false)
+    private Double longitude;
+
     @Column(name = "date", nullable = false)
     private LocalDate date;
 

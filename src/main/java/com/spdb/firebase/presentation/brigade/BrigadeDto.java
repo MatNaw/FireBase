@@ -14,6 +14,8 @@ public class BrigadeDto {
     private String city;
     private String postalCode;
     private String street;
+    private Double latitude;
+    private Double longitude;
     private Long squadMaxAmount;
 
     public static Brigade toBrigade(BrigadeDto brigadeDto) {
@@ -23,6 +25,8 @@ public class BrigadeDto {
                 .city(brigadeDto.getCity())
                 .postalCode(brigadeDto.getPostalCode())
                 .street(brigadeDto.getStreet())
+                .latitude(brigadeDto.getLatitude())
+                .longitude(brigadeDto.getLongitude())
                 .squadMaxAmount(brigadeDto.getSquadMaxAmount())
                 .build();
     }
@@ -34,6 +38,8 @@ public class BrigadeDto {
                 .city(brigade.getCity())
                 .postalCode(brigade.getPostalCode())
                 .street(brigade.getStreet())
+                .latitude(brigade.getLatitude())
+                .longitude(brigade.getLongitude())
                 .squadMaxAmount(brigade.getSquadMaxAmount())
                 .build();
     }

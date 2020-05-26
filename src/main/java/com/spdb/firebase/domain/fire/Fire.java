@@ -16,6 +16,8 @@ public class Fire {
     private String city;
     private String postalCode;
     private String street;
+    private Double latitude;
+    private Double longitude;
     private LocalDate date;
     private Status status;
     private List<Squad> squads;
@@ -27,6 +29,8 @@ public class Fire {
                 .postalCode(fireEntity.getPostalCode())
                 .city(fireEntity.getCity())
                 .street(fireEntity.getStreet())
+                .latitude(fireEntity.getLatitude())
+                .longitude(fireEntity.getLongitude())
                 .status(fireEntity.getStatus())
                 .squads(fireEntity.getBrigades().stream()
                         .map(Squad::fromFireBrigadeEntity)
@@ -41,6 +45,8 @@ public class Fire {
                 .postalCode(fire.getPostalCode())
                 .city(fire.getCity())
                 .street(fire.getStreet())
+                .latitude(fire.getLatitude())
+                .longitude(fire.getLongitude())
                 .status(fire.getStatus())
                 .brigades(fire.getSquads().stream()
                         .map(Squad::toFireBrigadeEntity)

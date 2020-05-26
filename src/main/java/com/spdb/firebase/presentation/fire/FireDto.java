@@ -1,9 +1,7 @@
 package com.spdb.firebase.presentation.fire;
 
 import com.spdb.firebase.domain.fire.Fire;
-import com.spdb.firebase.domain.fire.Squad;
 import com.spdb.firebase.domain.fire.Status;
-import com.spdb.firebase.presentation.brigade.BrigadeDto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -20,6 +18,8 @@ public class FireDto {
     private String city;
     private String postalCode;
     private String street;
+    private Double latitude;
+    private Double longitude;
     private LocalDate date;
     private Status status;
     private List<SquadDto> squads;
@@ -31,6 +31,8 @@ public class FireDto {
                 .postalCode(fire.getPostalCode())
                 .city(fire.getCity())
                 .street(fire.getStreet())
+                .latitude(fire.getLatitude())
+                .longitude(fire.getLongitude())
                 .status(fire.getStatus())
                 .squads(fire.getSquads().stream()
                         .map(SquadDto::fromSquad)

@@ -78,8 +78,6 @@ public class BrigadesImporter {
     }
 
     private String prepareCellValue(Cell cell) {
-        if (cell == null) return "";
-
-        return cell.toString();
+        return cell != null ? cell.toString() : "";
     }
 }

@@ -25,4 +25,11 @@ public class Squad {
                 .squadAmount(squad.getSquadAmount())
                 .build();
     }
+
+    public static Squad fromBrigade(Brigade brigade) {
+        return Squad.builder()
+                .brigade(brigade)
+                .squadAmount(brigade.getSquadMaxAmount())
+                .build();
+    }
 }
