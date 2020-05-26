@@ -1,8 +1,8 @@
 package com.spdb.firebase.domain.fire;
 
+import com.spdb.firebase.domain.brigade.Brigade;
 import com.spdb.firebase.domain.brigade.BrigadeEntity;
 import com.spdb.firebase.domain.brigade.BrigadeRepository;
-import com.spdb.firebase.system.exception.BusinessException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Service;
@@ -20,7 +20,8 @@ public class FireBrigadeService {
     @Transactional
     public List<Squad> processFireRequest(Double latitude, Double longitude, Long brigadesNumber) {
         return findBrigadesClosestToFire(latitude, longitude).stream()
-                .map(Squad::fromBrigadeEntity)
+                .map(Brigade::fromBrigadeEntity)
+                .map(Squad::fromBrigade)
                 .collect(Collectors.toList());
     }
 

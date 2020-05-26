@@ -11,11 +11,6 @@ import { SquadModel } from '@app/view/fire-overview/models/squad.model';
 export class FireOverviewService {
 
   private static readonly URL_PREFIX: string = 'fire';
-  REPORT_FIRE_PARAMS = {
-    latitude: '',
-    longitude: '',
-    brigadesNumber: ''
-  };
 
   constructor(private httpClient: HttpClient) { }
 
@@ -24,10 +19,14 @@ export class FireOverviewService {
       .pipe(first());
   }
 
-  reportFire(): Observable<SquadModel[]> {
+  reportFire(latitude, longitude, brigadesNumber): Observable<SquadModel[]> {
     return this.httpClient.get<SquadModel[]>(`${FireOverviewService.URL_PREFIX}/report`,
       {
-        params: this.REPORT_FIRE_PARAMS
+        params: {
+          latitude: latitude.toString(),
+          longitude: longitude.toString(),
+          brigadesNumber: brigadesNumber.toString(),
+        }
       })
       .pipe(first());
   }
