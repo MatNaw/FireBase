@@ -19,7 +19,7 @@ export class FireOverviewService {
       .pipe(first());
   }
 
-  reportFire(latitude, longitude, brigadesNumber): Observable<SquadModel[]> {
+  reportFire(latitude: number, longitude: number, brigadesNumber: number): Observable<SquadModel[]> {
     return this.httpClient.get<SquadModel[]>(`${FireOverviewService.URL_PREFIX}/report`,
       {
         params: {
