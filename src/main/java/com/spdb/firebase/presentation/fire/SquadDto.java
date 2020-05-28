@@ -15,11 +15,13 @@ import java.util.stream.Collectors;
 public class SquadDto {
     private BrigadeDto brigade;
     private Long squadAmount;
+    private Long availableSquads;
 
     public static SquadDto fromSquad(Squad squad) {
         return SquadDto.builder()
                 .brigade(BrigadeDto.fromBrigade(squad.getBrigade()))
                 .squadAmount(squad.getSquadAmount())
+                .availableSquads(squad.getSquadAmount())
                 .build();
     }
 }

@@ -41,7 +41,7 @@
       span(*ngFor="let squad of squads", style="padding: 0 15px;")
         fire-counter([label]="getBrigadeDescription(squad.brigade)",
           [minValue]="0",
-          [maxValue]="remainingNumberOfSquads() + squad.squadAmount",
+          [maxValue]="maxSquadsAmount(squad.squadAmount, squad.availableSquads)",
           [(value)]="squad.squadAmount")
       //  todo: maxValue should depends on current number of brigades and max possibility of them
 
