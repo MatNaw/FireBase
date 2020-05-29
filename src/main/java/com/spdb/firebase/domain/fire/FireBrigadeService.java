@@ -10,19 +10,29 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 @RequiredArgsConstructor
 public class FireBrigadeService {
     private static final Integer SUGGESTED_NUMBER_OF_BRIGADES = 10;
     private final BrigadeRepository brigadeRepository;
+    private final FireBrigadeRepository fireBrigadeRepository;
 
     @Transactional
     public List<Squad> processFireRequest(Double latitude, Double longitude, Long brigadesNumber) {
         return findBrigadesClosestToFire(latitude, longitude).stream()
                 .map(Brigade::fromBrigadeEntity)
-                .map(Squad::fromBrigade)
+                .map(brigade -> Squad.fromBrigade(brigade, getAvailableSquadsAmount(brigade)))
                 .collect(Collectors.toList());
+    }
+
+    public Long getAvailableSquadsAmount(Brigade brigade) {
+        Long occupied = fireBrigadeRepository.findFireBrigadeEntitiesByBrigade_Id(brigade.getId())
+                .stream()
+                .mapToLong(FireBrigadeEntity::getSquadAmount)
+                .sum();
+        return Math.max(brigade.getSquadMaxAmount() - occupied, 0);
     }
 
     private List<BrigadeEntity> findBrigadesClosestToFire(Double latitude, Double longitude) {

@@ -1,7 +1,5 @@
 package com.spdb.firebase.domain.fire;
 
-import com.spdb.firebase.domain.brigade.BrigadeEntity;
-import com.spdb.firebase.system.exception.BusinessException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
