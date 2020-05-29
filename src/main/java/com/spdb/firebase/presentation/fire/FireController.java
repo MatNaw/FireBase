@@ -44,7 +44,7 @@ public class FireController {
                         fireService.acceptFire(fireAcceptDto)));
     }
 
-    @DeleteMapping("/cancel")
+    @PostMapping("/cancel")
     public ResponseEntity<FireDto> cancelFire(@RequestParam Long fireId) {
         return ResponseEntity.ok(
                 FireDto.fromFire(
