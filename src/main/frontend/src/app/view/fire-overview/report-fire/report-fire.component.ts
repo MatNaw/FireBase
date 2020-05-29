@@ -133,8 +133,8 @@ export class ReportFireComponent implements OnInit, OnDestroy {
     return `${brigade.name.toUpperCase()}: ${brigade.postalCode}, ${brigade.city}, ${brigade.street}`;
   }
 
-  maxSquadsAmount (squadAmount: number, availableSquads: number) {
-    return Math.min(this.remainingNumberOfSquads() + squadAmount, availableSquads)
+  maxSquadsAmount (squad: SquadModel) {
+    return Math.min(this.remainingNumberOfSquads() + squad.squadAmount, squad.availableSquads)
   }
 
   remainingNumberOfSquads() {
