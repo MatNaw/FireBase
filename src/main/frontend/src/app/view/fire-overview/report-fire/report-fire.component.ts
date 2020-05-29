@@ -48,6 +48,7 @@ export class ReportFireComponent implements OnInit, OnDestroy {
   reportFire() {
     this.fireOverviewService.reportFire(this.lat, this.lng).subscribe(response => {
       this.squads = response;
+      this.squads.forEach(squad => squad.squadAmount = 0);
       this.isCustomizeSquadsVisible = true;
     });
   }
