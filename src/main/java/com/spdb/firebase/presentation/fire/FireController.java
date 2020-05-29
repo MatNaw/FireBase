@@ -37,4 +37,11 @@ public class FireController {
                 .collect(Collectors.toList())
         );
     }
+
+    @PostMapping("/accept")
+    public ResponseEntity<FireDto> acceptFire(@RequestBody FireAcceptDto fireAcceptDto) {
+        return ResponseEntity.ok(
+                FireDto.fromFire(
+                        fireService.acceptFire(fireAcceptDto)));
+    }
 }

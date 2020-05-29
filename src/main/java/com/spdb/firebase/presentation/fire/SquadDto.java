@@ -24,4 +24,11 @@ public class SquadDto {
                 .availableSquads(squad.getSquadAmount())
                 .build();
     }
+
+    public static Squad toSquad(SquadDto squadDto) {
+        return Squad.builder()
+                .brigade(BrigadeDto.toBrigade(squadDto.getBrigade()))
+                .squadAmount(squadDto.getSquadAmount())
+                .build();
+    }
 }

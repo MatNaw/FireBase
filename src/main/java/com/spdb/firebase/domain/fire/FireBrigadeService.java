@@ -42,8 +42,6 @@ public class FireBrigadeService {
                 .sorted(Comparator.comparing(Pair::getSecond))
                 .collect(Collectors.toList());
 
-        //#TODO REMOVE DEBUG CODE:
-        //distances.subList(0, SUGGESTED_NUMBER_OF_BRIGADES).forEach(r -> System.out.println(r.getFirst().getName() + ", " + r.getSecond()));
         return distances.subList(0, SUGGESTED_NUMBER_OF_BRIGADES).stream()
                 .map(Pair::getFirst)
                 .collect(Collectors.toList());
