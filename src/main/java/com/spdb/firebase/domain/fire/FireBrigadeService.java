@@ -10,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Service
 @RequiredArgsConstructor
@@ -20,7 +19,7 @@ public class FireBrigadeService {
     private final FireBrigadeRepository fireBrigadeRepository;
 
     @Transactional
-    public List<Squad> processFireRequest(Double latitude, Double longitude, Long brigadesNumber) {
+    public List<Squad> processFireRequest(Double latitude, Double longitude) {
         return findBrigadesClosestToFire(latitude, longitude).stream()
                 .map(Brigade::fromBrigadeEntity)
                 .map(brigade -> Squad.fromBrigade(brigade, getAvailableSquadsAmount(brigade)))

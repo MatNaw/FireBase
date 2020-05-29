@@ -2,7 +2,6 @@ package com.spdb.firebase.domain.fire;
 
 import com.spdb.firebase.presentation.fire.FireAcceptDto;
 import com.spdb.firebase.presentation.fire.SquadDto;
-import com.spdb.firebase.system.exception.BusinessException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
