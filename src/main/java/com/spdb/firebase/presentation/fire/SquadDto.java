@@ -20,7 +20,7 @@ public class SquadDto {
     public static SquadDto fromSquad(Squad squad) {
         return SquadDto.builder()
                 .brigade(BrigadeDto.fromBrigade(squad.getBrigade()))
-                .squadAmount(squad.getSquadAmount())
+                .squadAmount(0L)
                 .availableSquads(squad.getSquadAmount())
                 .build();
     }

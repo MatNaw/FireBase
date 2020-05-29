@@ -9,8 +9,8 @@ import {
 import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { MapsAPILoader } from '@agm/core';
 import { FireOverviewService } from '@app/view/fire-overview/fire-overview.service';
-import { BrigadeModel } from '@app/view/fire-overview/models/brigade.model';
 import { SquadModel } from '@app/view/fire-overview/models/squad.model';
+import { TranslateService } from "@ngx-translate/core";
 
 @Component({
   selector: 'fire-report-fire',
@@ -33,7 +33,9 @@ export class ReportFireComponent implements OnInit, OnDestroy {
 
   isCustomizeSquadsVisible = false;
 
-  constructor(private fireOverviewService: FireOverviewService, private mapsAPILoader: MapsAPILoader) { }
+  constructor(private fireOverviewService: FireOverviewService,
+              private mapsAPILoader: MapsAPILoader,
+              private translationService: TranslateService) { }
 
   ngOnInit() {
     this.setupMapsAPI();
@@ -129,8 +131,9 @@ export class ReportFireComponent implements OnInit, OnDestroy {
     });
   }
 
-  getBrigadeDescription(brigade: BrigadeModel) {
-    return `${brigade.name.toUpperCase()}: ${brigade.postalCode}, ${brigade.city}, ${brigade.street}`;
+  getBrigadeDescription(squad: SquadModel) {
+    return `${squad.brigade.name.toUpperCase()}: ${squad.brigade.postalCode}, ${squad.brigade.city},
+     ${squad.brigade.street}; ${this.translationService.instant('REPORT_FIRE.AVAILABLE_BRIGADES')}: ${squad.availableSquads}`;
   }
 
   maxSquadsAmount (squad: SquadModel) {

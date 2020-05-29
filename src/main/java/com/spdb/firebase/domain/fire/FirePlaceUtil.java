@@ -13,29 +13,25 @@ public class FirePlaceUtil {
     String street;
 
     public static FirePlaceUtil parseFirePlace(String firePlace) {
-        if(firePlace != null){
-            String[] address = firePlace.split(", ");
+        String street = "", postalCode = "", city = "";
+        String[] address = firePlace.split(", ");
+
+        if(address.length > 0) {
+            street = address[0];
+
             if(address.length > 1) {
                 String[] postalCodeWithCity = address[1].split(" ", 1);
-
-                return FirePlaceUtil.builder()
-                        .street(address[0])
-                        .postalCode(postalCodeWithCity[0])
-                        .city(postalCodeWithCity[1])
-                        .build();
-            }
-            else if(address.length > 0) {
-                return FirePlaceUtil.builder()
-                        .street(address[0])
-                        .postalCode("")
-                        .city("")
-                        .build();
+                if(postalCodeWithCity.length > 1) {
+                    postalCode = postalCodeWithCity[0];
+                    city = postalCodeWithCity[1];
+                }
             }
         }
+
         return FirePlaceUtil.builder()
-                .street("")
-                .postalCode("")
-                .city("")
+                .street(street)
+                .postalCode(postalCode)
+                .city(city)
                 .build();
     }
 }

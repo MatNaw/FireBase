@@ -29,6 +29,10 @@ export class FireOverviewComponent implements OnInit {
     this.modals.open(this.reportFireContent, { size: 'lg', centered: true, backdrop: 'static' });
   }
 
+  cancelFire(fireId: number) {
+    this.fireOverviewService.cancelFire(fireId).subscribe();
+  }
+
   onSubmittedEventEmitter() {
     this.getData();
   }

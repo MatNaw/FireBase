@@ -39,11 +39,10 @@
 
     span(*ngIf="isCustomizeSquadsVisible")
       span(*ngFor="let squad of squads", style="padding: 0 15px;")
-        fire-counter([label]="getBrigadeDescription(squad.brigade)",
+        fire-counter([label]="getBrigadeDescription(squad)",
           [minValue]="0",
           [maxValue]="maxSquadsAmount(squad)",
           [(value)]="squad.squadAmount")
-      //  todo: maxValue should depends on current number of brigades and max possibility of them
 
       .row.justify-content-between(style="padding: 0 15px;")
         button.btn.btn-link.btn-cancel(type="button", (click)="cancel()", translate) ALL.CANCEL

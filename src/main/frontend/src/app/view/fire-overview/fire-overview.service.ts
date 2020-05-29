@@ -34,10 +34,12 @@ export class FireOverviewService {
   acceptFire(firePlace: String, latitude: number, longitude: number, squads: Squad[]): Observable<FireAcceptModel> {
     return this.httpClient.post<FireAcceptModel>(`${FireOverviewService.URL_PREFIX}/accept`,
       {
-        firePlace: String,
-        latitude: latitude,
-        longitude: longitude,
-        squads: squads
+        firePlace, latitude, longitude, squads
       });
+  }
+
+  cancelFire(fireId: number): Observable<any> {
+    console.log("cancel fire with id: " + fireId);
+    return null;
   }
 }
