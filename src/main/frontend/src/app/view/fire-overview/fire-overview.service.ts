@@ -20,13 +20,12 @@ export class FireOverviewService {
       .pipe(first());
   }
 
-  reportFire(latitude: number, longitude: number, brigadesNumber: number): Observable<SquadModel[]> {
+  reportFire(latitude: number, longitude: number): Observable<SquadModel[]> {
     return this.httpClient.get<SquadModel[]>(`${FireOverviewService.URL_PREFIX}/report`,
       {
         params: {
           latitude: latitude.toString(),
           longitude: longitude.toString(),
-          brigadesNumber: brigadesNumber.toString(),
         }
       })
       .pipe(first());
@@ -39,7 +38,6 @@ export class FireOverviewService {
         latitude: latitude,
         longitude: longitude,
         squads: squads
-      }
-      );
+      });
   }
 }
