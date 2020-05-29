@@ -2,6 +2,7 @@ package com.spdb.firebase.domain.fire;
 
 import com.spdb.firebase.presentation.fire.FireAcceptDto;
 import com.spdb.firebase.presentation.fire.SquadDto;
+import com.spdb.firebase.system.exception.BusinessException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,6 +22,14 @@ public class FireService {
         return fireRepository.findAllByStatus(Status.ACTIVE).stream()
                 .map(Fire::fromFireEntity)
                 .collect(Collectors.toList());
+    }
+
+    public Fire cancelFire(Long fireId) {
+        FireEntity fireEntity = fireRepository.findById(fireId)
+                .orElseThrow(() -> new BusinessException("fire.not-exists"));
+        fireEntity.setStatus(Status.INACTIVE);
+        fireRepository.save(fireEntity);
+        return Fire.fromFireEntity(fireEntity);
     }
 
     public Fire acceptFire(FireAcceptDto fireAcceptDto) {

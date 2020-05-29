@@ -20,7 +20,7 @@ public class FirePlaceUtil {
             street = address[0];
 
             if(address.length > 1) {
-                String[] postalCodeWithCity = address[1].split(" ", 1);
+                String[] postalCodeWithCity = address[1].split(" ", 2);
                 if(postalCodeWithCity.length > 1) {
                     postalCode = postalCodeWithCity[0];
                     city = postalCodeWithCity[1];
