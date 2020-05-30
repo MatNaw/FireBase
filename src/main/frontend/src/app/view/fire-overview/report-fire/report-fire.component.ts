@@ -56,7 +56,7 @@ export class ReportFireComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
-    if(this.validateNumberOfSquads()) {
+    if(this.validateSumOfSquads() && this.validateEachSquadAmount()) {
       this.fireOverviewService.acceptFire(this.firePlace, this.lat, this.lng, this.squads).subscribe();
       this.toastr.success(this.translationService.instant('REPORT_FIRE.REQUEST_ACCEPTED'));
     }
@@ -146,30 +146,31 @@ export class ReportFireComponent implements OnInit, OnDestroy {
     return Math.min(this.remainingNumberOfSquads() + squad.squadAmount, squad.availableSquads)
   }
 
-  remainingNumberOfSquads() {
-    const currentCount = this.squads
+  calculateCurrentSquadsCount() {
+    return this.squads
       .map(it => it.squadAmount)
       .reduce((a, b) => a + b);
-
-    return this.numberOfSquads - currentCount;
   }
 
-  sumNumberOfSquads() {
-     return this.squads
-      .map(squad => squad.squadAmount)
-      .reduce((a, b) => a + b);
+  remainingNumberOfSquads() {
+    return this.numberOfSquads - this.calculateCurrentSquadsCount();
   }
 
-  validateNumberOfSquads() {
-    const counter = this.squads
-      .map(squad => squad.squadAmount)
-      .reduce((a, b) => a + b);
-
-    if (counter > this.numberOfSquads) {
+  validateEachSquadAmount() {
+    if(this.squads.filter(it => it.squadAmount > it.availableSquads).length > 0) {
       this.toastr.error(this.translationService.instant('VALIDATION.NUMBER_OF_SQUADS_INVALID'));
       return false;
     }
-    else if (counter === 0) {
+    return true;
+  }
+
+  validateSumOfSquads() {
+    const counter = this.calculateCurrentSquadsCount();
+    if (counter > this.numberOfSquads) {
+      this.toastr.error(this.translationService.instant('VALIDATION.SUM_NUMBER_OF_SQUADS_INVALID'));
+      return false;
+    }
+    else if (counter <= 0) {
       this.toastr.error(this.translationService.instant('VALIDATION.NO_SQUADS_CHOSEN'));
       return false;
     }

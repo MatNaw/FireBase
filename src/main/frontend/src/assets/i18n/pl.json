@@ -39,7 +39,8 @@
   "VALIDATION": {
     "FIELD_NOT_VALID": "Pole jest niepoprawne.",
     "REQUIRED": "Pole jest wymagane.",
-    "NUMBER_OF_SQUADS_INVALID": "Sumaryczna liczba drużyn przekracza żądaną liczbę drużyn",
+    "NUMBER_OF_SQUADS_INVALID": "Liczba wybranych drużyn w jednej z jednostek przekracza dostępną liczbę drużyn",
+    "SUM_NUMBER_OF_SQUADS_INVALID": "Sumaryczna liczba drużyn przekracza żądaną liczbę drużyn",
     "NO_SQUADS_CHOSEN": "Nie wybrano drużyn z żadnej z jednostek"
   }
 }

@@ -61,7 +61,7 @@ public class FireService {
     List<FireBrigadeEntity> saveFireBrigades(FireAcceptDto fireAcceptDto, FireEntity fireEntity) {
         List<FireBrigadeEntity> fireBrigadeEntities = fireAcceptDto.getSquads().stream()
                 .map(SquadDto::toSquad)
-                .filter(squad -> squad.getSquadAmount() > 0)
+                .filter(squad -> squad.getSquadAmount() != null && squad.getSquadAmount() > 0)
                 .map(Squad::toFireBrigadeEntity)
                 .collect(Collectors.toList());
 
