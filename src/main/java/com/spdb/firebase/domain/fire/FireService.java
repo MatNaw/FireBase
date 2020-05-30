@@ -1,7 +1,5 @@
 package com.spdb.firebase.domain.fire;
 
-import com.spdb.firebase.presentation.fire.FireAcceptDto;
-import com.spdb.firebase.presentation.fire.SquadDto;
 import com.spdb.firebase.system.exception.BusinessException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -24,6 +22,7 @@ public class FireService {
                 .collect(Collectors.toList());
     }
 
+    @Transactional
     public Fire cancelFire(Long fireId) {
         FireEntity fireEntity = fireRepository.findById(fireId)
                 .orElseThrow(() -> new BusinessException("fire.not-exists"));
@@ -32,23 +31,24 @@ public class FireService {
         return Fire.fromFireEntity(fireEntity);
     }
 
-    public Fire acceptFire(FireAcceptDto fireAcceptDto) {
-        FireEntity fireEntity = saveFire(fireAcceptDto);
-        fireEntity.setBrigades(saveFireBrigades(fireAcceptDto, fireEntity));
+    @Transactional
+    public Fire acceptFire(FireAccept fireAccept) {
+        FireEntity fireEntity = saveFire(fireAccept);
+        fireEntity.setBrigades(saveFireBrigades(fireAccept, fireEntity));
 
         return Fire.fromFireEntity(fireEntity);
     }
 
     @Transactional
-    FireEntity saveFire(FireAcceptDto fireAcceptDto) {
-        FirePlaceUtil firePlace = FirePlaceUtil.parseFirePlace(fireAcceptDto.getFirePlace());
+    FireEntity saveFire(FireAccept fireAccept) {
+        FirePlaceUtil firePlace = FirePlaceUtil.parseFirePlace(fireAccept.getFirePlace());
 
         FireEntity fireEntity = FireEntity.builder()
                 .city(firePlace.getCity())
                 .postalCode(firePlace.getPostalCode())
                 .street(firePlace.getStreet())
-                .latitude(fireAcceptDto.getLatitude())
-                .longitude(fireAcceptDto.getLongitude())
+                .latitude(fireAccept.getLatitude())
+                .longitude(fireAccept.getLongitude())
                 .date(LocalDate.now())
                 .status(Status.ACTIVE)
                 .build();
@@ -58,9 +58,8 @@ public class FireService {
     }
 
     @Transactional
-    List<FireBrigadeEntity> saveFireBrigades(FireAcceptDto fireAcceptDto, FireEntity fireEntity) {
-        List<FireBrigadeEntity> fireBrigadeEntities = fireAcceptDto.getSquads().stream()
-                .map(SquadDto::toSquad)
+    List<FireBrigadeEntity> saveFireBrigades(FireAccept fireAccept, FireEntity fireEntity) {
+        List<FireBrigadeEntity> fireBrigadeEntities = fireAccept.getSquads().stream()
                 .filter(squad -> squad.getSquadAmount() != null && squad.getSquadAmount() > 0)
                 .map(Squad::toFireBrigadeEntity)
                 .collect(Collectors.toList());
@@ -69,6 +68,7 @@ public class FireService {
             fireBrigadeEntity.setId(new FireBrigadeEntityId(
                     fireEntity.getId(),
                     fireBrigadeEntity.getBrigade().getId()));
+
             fireBrigadeEntity.setFire(fireEntity);
             fireBrigadeRepository.save(fireBrigadeEntity);
         });
