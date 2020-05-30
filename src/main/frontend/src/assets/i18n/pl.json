@@ -30,13 +30,16 @@
     "SET_NUMBER_OF_BRIGADES": "Podaj ilu drużyn potrzebujesz",
     "AVAILABLE_BRIGADES": "liczba dostępnych drużyn: ",
     "REPORT": "Zgłoś",
-    "ACCEPT": "Zatwierdź zgłoszenie"
+    "ACCEPT": "Zatwierdź zgłoszenie",
+    "REQUEST_ACCEPTED": "Zgłoszenie przyjęte"
   },
   "EXCEPTION": {
     "UNEXPECTED": "Wystąpił nieoczekiwany błąd"
   },
   "VALIDATION": {
     "FIELD_NOT_VALID": "Pole jest niepoprawne.",
-    "REQUIRED": "Pole jest wymagane."
+    "REQUIRED": "Pole jest wymagane.",
+    "NUMBER_OF_SQUADS_INVALID": "Sumaryczna liczba drużyn przekracza żądaną liczbę drużyn",
+    "NO_SQUADS_CHOSEN": "Nie wybrano drużyn z żadnej z jednostek"
   }
 }

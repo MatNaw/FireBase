@@ -11,6 +11,7 @@ import { MapsAPILoader } from '@agm/core';
 import { FireOverviewService } from '@app/view/fire-overview/fire-overview.service';
 import { SquadModel } from '@app/view/fire-overview/models/squad.model';
 import { TranslateService } from "@ngx-translate/core";
+import { ToastrService } from "ngx-toastr";
 
 @Component({
   selector: 'fire-report-fire',
@@ -33,9 +34,10 @@ export class ReportFireComponent implements OnInit, OnDestroy {
 
   isCustomizeSquadsVisible = false;
 
-  constructor(private fireOverviewService: FireOverviewService,
+  constructor(private toastr: ToastrService,
+              private translationService: TranslateService,
               private mapsAPILoader: MapsAPILoader,
-              private translationService: TranslateService) { }
+              private fireOverviewService: FireOverviewService) { }
 
   ngOnInit() {
     this.setupMapsAPI();
@@ -54,7 +56,10 @@ export class ReportFireComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
-    this.fireOverviewService.acceptFire(this.firePlace, this.lat, this.lng, this.squads).subscribe();
+    if(this.validateNumberOfSquads()) {
+      this.fireOverviewService.acceptFire(this.firePlace, this.lat, this.lng, this.squads).subscribe();
+      this.toastr.success(this.translationService.instant('REPORT_FIRE.REQUEST_ACCEPTED'));
+    }
   }
 
   cancel() {
@@ -147,5 +152,27 @@ export class ReportFireComponent implements OnInit, OnDestroy {
       .reduce((a, b) => a + b);
 
     return this.numberOfSquads - currentCount;
+  }
+
+  sumNumberOfSquads() {
+     return this.squads
+      .map(squad => squad.squadAmount)
+      .reduce((a, b) => a + b);
+  }
+
+  validateNumberOfSquads() {
+    const counter = this.squads
+      .map(squad => squad.squadAmount)
+      .reduce((a, b) => a + b);
+
+    if (counter > this.numberOfSquads) {
+      this.toastr.error(this.translationService.instant('VALIDATION.NUMBER_OF_SQUADS_INVALID'));
+      return false;
+    }
+    else if (counter === 0) {
+      this.toastr.error(this.translationService.instant('VALIDATION.NO_SQUADS_CHOSEN'));
+      return false;
+    }
+    return true;
   }
 }
