@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -14,6 +15,7 @@ import java.util.stream.Collectors;
 public class FireService {
     private final FireRepository fireRepository;
     private final FireBrigadeRepository fireBrigadeRepository;
+    private final FireBrigadeService fireBrigadeService;
 
     @Transactional
     public List<Fire> findAllActiveFires() {
@@ -25,14 +27,16 @@ public class FireService {
     @Transactional
     public Fire cancelFire(Long fireId) {
         FireEntity fireEntity = fireRepository.findById(fireId)
-                .orElseThrow(() -> new BusinessException("fire.not-exists"));
+                .orElseThrow(() -> new BusinessException("fire-not-exists"));
         fireEntity.setStatus(Status.INACTIVE);
         fireRepository.save(fireEntity);
         return Fire.fromFireEntity(fireEntity);
     }
 
-    @Transactional
     public Fire acceptFire(FireAccept fireAccept) {
+        validateCurrentSquadsAvailability(fireAccept);
+        validateExistenceOfFire(fireAccept);
+
         FireEntity fireEntity = saveFire(fireAccept);
         fireEntity.setBrigades(saveFireBrigades(fireAccept, fireEntity));
 
@@ -73,5 +77,23 @@ public class FireService {
             fireBrigadeRepository.save(fireBrigadeEntity);
         });
         return fireBrigadeEntities;
+    }
+
+    private void validateCurrentSquadsAvailability(FireAccept fireAccept) {
+        fireAccept.getSquads().forEach(squad -> {
+            if(squad.getSquadAmount() > fireBrigadeService.getAvailableSquadsAmount(squad.getBrigade())) {
+                throw new BusinessException("squad-amount-changed");
+            }
+        });
+    }
+
+    private void validateExistenceOfFire(FireAccept fireAccept) {
+        Optional<FireEntity> fireEntity = fireRepository.findByLatitudeAndLongitude(
+                fireAccept.getLatitude(),
+                fireAccept.getLongitude());
+
+        if(fireEntity.isPresent() && fireEntity.get().getStatus().equals(Status.ACTIVE)) {
+            throw new BusinessException("fire-already-exists");
+        }
     }
 }

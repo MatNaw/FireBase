@@ -10,4 +10,5 @@ import java.util.Optional;
 public interface FireRepository extends JpaRepository<FireEntity, Long> {
     List<FireEntity> findAllByStatus(Status status);
     Optional<FireEntity> findById(Long id);
+    Optional<FireEntity> findByLatitudeAndLongitude(Double latitude, Double longitude);
 }
