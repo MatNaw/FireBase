@@ -5,8 +5,9 @@ import {
   OnDestroy,
   OnInit,
   Output,
+  ViewChild,
 } from '@angular/core';
-import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { MapsAPILoader } from '@agm/core';
 import { FireOverviewService } from '@app/view/fire-overview/fire-overview.service';
 import { SquadModel } from '@app/view/fire-overview/models/squad.model';
@@ -23,6 +24,8 @@ export class ReportFireComponent implements OnInit, OnDestroy {
   @Input() modal: NgbModalRef;
   @Output() submittedEventEmitter = new EventEmitter();
 
+  @ViewChild('confirmReportFire') confirmReportFire;
+
   private geoCoder;
 
   firePlace: String;
@@ -36,6 +39,7 @@ export class ReportFireComponent implements OnInit, OnDestroy {
 
   constructor(private toastr: ToastrService,
               private translationService: TranslateService,
+              private modals: NgbModal,
               private mapsAPILoader: MapsAPILoader,
               private fireOverviewService: FireOverviewService) { }
 
@@ -45,6 +49,12 @@ export class ReportFireComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.submittedEventEmitter.emit();
+  }
+
+  acceptFire() {
+    this.fireOverviewService.acceptFire(this.firePlace, this.lat, this.lng, this.squads).subscribe(() => {
+      this.toastr.success(this.translationService.instant('REPORT_FIRE.REQUEST_ACCEPTED'));
+    });
   }
 
   reportFire() {
@@ -57,9 +67,12 @@ export class ReportFireComponent implements OnInit, OnDestroy {
 
   onSubmit() {
     if(this.validateSumOfSquads() && this.validateEachSquadAmount()) {
-      this.fireOverviewService.acceptFire(this.firePlace, this.lat, this.lng, this.squads).subscribe(() => {
-        this.toastr.success(this.translationService.instant('REPORT_FIRE.REQUEST_ACCEPTED'));
-      });
+      if (this.calculateCurrentSquadsCount() < this.numberOfSquads) {
+        this.openConfirmationModal();
+      }
+      else {
+        this.acceptFire();
+      }
     }
   }
 
@@ -176,5 +189,14 @@ export class ReportFireComponent implements OnInit, OnDestroy {
       return false;
     }
     return true;
+  }
+
+  openConfirmationModal() {
+    this.modals.open(this.confirmReportFire, { size: 'sm', centered: true, backdrop: 'static' })
+      .result.then(() => {
+        this.acceptFire();
+    }, () => {
+        this.toastr.info(this.translationService.instant('REPORT_FIRE.ADJUST_SQUADS'));
+    });
   }
 }
