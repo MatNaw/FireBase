@@ -10,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Service
 @RequiredArgsConstructor
@@ -20,7 +19,7 @@ public class FireBrigadeService {
     private final FireBrigadeRepository fireBrigadeRepository;
 
     @Transactional
-    public List<Squad> processFireRequest(Double latitude, Double longitude, Long brigadesNumber) {
+    public List<Squad> processFireRequest(Double latitude, Double longitude) {
         return findBrigadesClosestToFire(latitude, longitude).stream()
                 .map(Brigade::fromBrigadeEntity)
                 .map(brigade -> Squad.fromBrigade(brigade, getAvailableSquadsAmount(brigade)))
@@ -42,8 +41,6 @@ public class FireBrigadeService {
                 .sorted(Comparator.comparing(Pair::getSecond))
                 .collect(Collectors.toList());
 
-        //#TODO REMOVE DEBUG CODE:
-        //distances.subList(0, SUGGESTED_NUMBER_OF_BRIGADES).forEach(r -> System.out.println(r.getFirst().getName() + ", " + r.getSecond()));
         return distances.subList(0, SUGGESTED_NUMBER_OF_BRIGADES).stream()
                 .map(Pair::getFirst)
                 .collect(Collectors.toList());

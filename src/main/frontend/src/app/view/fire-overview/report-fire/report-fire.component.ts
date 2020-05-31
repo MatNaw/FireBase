@@ -9,8 +9,9 @@ import {
 import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { MapsAPILoader } from '@agm/core';
 import { FireOverviewService } from '@app/view/fire-overview/fire-overview.service';
-import { BrigadeModel } from '@app/view/fire-overview/models/brigade.model';
 import { SquadModel } from '@app/view/fire-overview/models/squad.model';
+import { TranslateService } from "@ngx-translate/core";
+import { ToastrService } from "ngx-toastr";
 
 @Component({
   selector: 'fire-report-fire',
@@ -33,7 +34,10 @@ export class ReportFireComponent implements OnInit, OnDestroy {
 
   isCustomizeSquadsVisible = false;
 
-  constructor(private fireOverviewService: FireOverviewService, private mapsAPILoader: MapsAPILoader) { }
+  constructor(private toastr: ToastrService,
+              private translationService: TranslateService,
+              private mapsAPILoader: MapsAPILoader,
+              private fireOverviewService: FireOverviewService) { }
 
   ngOnInit() {
     this.setupMapsAPI();
@@ -44,14 +48,19 @@ export class ReportFireComponent implements OnInit, OnDestroy {
   }
 
   reportFire() {
-    this.fireOverviewService.reportFire(this.lat, this.lng, this.numberOfSquads).subscribe(response => {
+    this.fireOverviewService.reportFire(this.lat, this.lng).subscribe(response => {
       this.squads = response;
+      this.squads.forEach(squad => squad.squadAmount = 0);
       this.isCustomizeSquadsVisible = true;
     });
   }
 
   onSubmit() {
-    this.fireOverviewService.acceptFire().subscribe();
+    if(this.validateSumOfSquads() && this.validateEachSquadAmount()) {
+      this.fireOverviewService.acceptFire(this.firePlace, this.lat, this.lng, this.squads).subscribe(() => {
+        this.toastr.success(this.translationService.instant('REPORT_FIRE.REQUEST_ACCEPTED'));
+      });
+    }
   }
 
   cancel() {
@@ -129,19 +138,43 @@ export class ReportFireComponent implements OnInit, OnDestroy {
     });
   }
 
-  getBrigadeDescription(brigade: BrigadeModel) {
-    return `${brigade.name.toUpperCase()}: ${brigade.postalCode}, ${brigade.city}, ${brigade.street}`;
+  getBrigadeDescription(squad: SquadModel) {
+    return `${squad.brigade.name.toUpperCase()}: ${squad.brigade.postalCode}, ${squad.brigade.city},
+     ${squad.brigade.street}; ${this.translationService.instant('REPORT_FIRE.AVAILABLE_BRIGADES')}: ${squad.availableSquads}`;
   }
 
   maxSquadsAmount (squad: SquadModel) {
     return Math.min(this.remainingNumberOfSquads() + squad.squadAmount, squad.availableSquads)
   }
 
-  remainingNumberOfSquads() {
-    const currentCount = this.squads
+  calculateCurrentSquadsCount() {
+    return this.squads
       .map(it => it.squadAmount)
       .reduce((a, b) => a + b);
+  }
 
-    return this.numberOfSquads - currentCount;
+  remainingNumberOfSquads() {
+    return this.numberOfSquads - this.calculateCurrentSquadsCount();
+  }
+
+  validateEachSquadAmount() {
+    if(this.squads.filter(it => it.squadAmount > it.availableSquads).length > 0) {
+      this.toastr.error(this.translationService.instant('VALIDATION.NUMBER_OF_SQUADS_INVALID'));
+      return false;
+    }
+    return true;
+  }
+
+  validateSumOfSquads() {
+    const counter = this.calculateCurrentSquadsCount();
+    if (counter > this.numberOfSquads) {
+      this.toastr.error(this.translationService.instant('VALIDATION.SUM_NUMBER_OF_SQUADS_INVALID'));
+      return false;
+    }
+    else if (counter <= 0) {
+      this.toastr.error(this.translationService.instant('VALIDATION.NO_SQUADS_CHOSEN'));
+      return false;
+    }
+    return true;
   }
 }

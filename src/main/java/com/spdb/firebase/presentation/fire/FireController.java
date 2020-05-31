@@ -29,12 +29,24 @@ public class FireController {
 
     @GetMapping("/report")
     public ResponseEntity<List<SquadDto>> getFireRequest(@RequestParam Double latitude,
-                                                         @RequestParam Double longitude,
-                                                         @RequestParam Long brigadesNumber) {
+                                                         @RequestParam Double longitude) {
         return ResponseEntity.ok(
-                fireBrigadeService.processFireRequest(latitude, longitude, brigadesNumber).stream()
+                fireBrigadeService.processFireRequest(latitude, longitude).stream()
                 .map(SquadDto::fromSquad)
                 .collect(Collectors.toList())
         );
+    }
+
+    @PostMapping("/accept")
+    public ResponseEntity<Long> acceptFire(@RequestBody FireAcceptDto fireAcceptDto) {
+        return ResponseEntity.ok(
+                        fireService.acceptFire(FireAcceptDto.toFireAccept(fireAcceptDto)));
+    }
+
+    @PostMapping("/cancel")
+    public ResponseEntity<FireDto> cancelFire(@RequestParam Long fireId) {
+        return ResponseEntity.ok(
+                FireDto.fromFire(
+                        fireService.cancelFire(fireId)));
     }
 }
