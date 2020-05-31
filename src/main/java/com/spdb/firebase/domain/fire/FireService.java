@@ -33,14 +33,15 @@ public class FireService {
         return Fire.fromFireEntity(fireEntity);
     }
 
-    public Fire acceptFire(FireAccept fireAccept) {
+    @Transactional
+    public Long acceptFire(FireAccept fireAccept) {
         validateCurrentSquadsAvailability(fireAccept);
         validateExistenceOfFire(fireAccept);
 
         FireEntity fireEntity = saveFire(fireAccept);
-        fireEntity.setBrigades(saveFireBrigades(fireAccept, fireEntity));
+        saveFireBrigades(fireAccept, fireEntity);
 
-        return Fire.fromFireEntity(fireEntity);
+        return fireEntity.getId();
     }
 
     @Transactional

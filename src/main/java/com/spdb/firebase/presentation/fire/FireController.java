@@ -38,10 +38,9 @@ public class FireController {
     }
 
     @PostMapping("/accept")
-    public ResponseEntity<FireDto> acceptFire(@RequestBody FireAcceptDto fireAcceptDto) {
+    public ResponseEntity<Long> acceptFire(@RequestBody FireAcceptDto fireAcceptDto) {
         return ResponseEntity.ok(
-                FireDto.fromFire(
-                        fireService.acceptFire(FireAcceptDto.toFireAccept(fireAcceptDto))));
+                        fireService.acceptFire(FireAcceptDto.toFireAccept(fireAcceptDto)));
     }
 
     @PostMapping("/cancel")
