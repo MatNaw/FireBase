@@ -2,8 +2,7 @@ import {
   Component,
   EventEmitter,
   Input,
-  OnDestroy,
-  OnInit, Output,
+  Output,
 } from '@angular/core';
 import {NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
 
@@ -13,16 +12,12 @@ import {NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
   templateUrl: './confirm-report-fire.component.pug',
   styleUrls: ['./confirm-report-fire.component.scss']
 })
-export class ConfirmReportFireComponent implements OnInit, OnDestroy {
+export class ConfirmReportFireComponent {
 
   @Input() modal: NgbModalRef;
   @Output() submittedEventEmitter = new EventEmitter();
 
   constructor() { }
-
-  ngOnInit() { }
-
-  ngOnDestroy(): void { }
 
   onSubmit() {
     this.modal.close();
