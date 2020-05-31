@@ -54,6 +54,7 @@ export class ReportFireComponent implements OnInit, OnDestroy {
   acceptFire() {
     this.fireOverviewService.acceptFire(this.firePlace, this.lat, this.lng, this.squads).subscribe(() => {
       this.toastr.success(this.translationService.instant('REPORT_FIRE.REQUEST_ACCEPTED'));
+      this.cancel()
     });
   }
 

@@ -32,7 +32,17 @@
 
           agm-marker([latitude] = "lat",
             [longitude] = "lng",
-            [agmFitBounds] = "true")
+            [agmFitBounds] = "true",
+            style="background-color: blue;"
+          )
+
+          agm-marker(*ngFor="let squad of squads",
+            [latitude] = "squad.brigade.latitude",
+            [longitude] = "squad.brigade.longitude",
+            [agmFitBounds] = "true",
+            [label]="squad.brigade.name",
+            style="background-color: blue;"
+          )
 
     .row.justify-content-end(style="padding: 0 15px;")
       button.btn.btn-link.btn-text(*ngIf="!isCustomizeSquadsVisible", type="button", (click)="reportFire()", translate) REPORT_FIRE.REPORT

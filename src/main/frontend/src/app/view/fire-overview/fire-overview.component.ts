@@ -30,7 +30,8 @@ export class FireOverviewComponent implements OnInit {
   }
 
   cancelFire(fireId: number) {
-    this.fireOverviewService.cancelFire(fireId).subscribe();
+    this.fireOverviewService.cancelFire(fireId)
+      .subscribe( () => this.getData());
   }
 
   onSubmittedEventEmitter() {
