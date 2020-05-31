@@ -57,3 +57,7 @@
       .row.justify-content-between(style="padding: 0 15px;")
         button.btn.btn-link.btn-cancel(type="button", (click)="cancel()", translate) ALL.CANCEL
         button.btn.btn-link.btn-text(type="submit", (click)="onSubmit()", translate) REPORT_FIRE.ACCEPT
+
+ng-template(#confirmReportFire, let-modal)
+  .modal-body
+    fire-confirm-report-fire([modal]="modal")

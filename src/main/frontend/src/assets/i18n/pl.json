@@ -6,6 +6,7 @@
     "SAVE": "Zapisz",
     "CANCEL": "Anuluj",
     "YES": "Tak",
+    "NO": "Nie",
     "BACK": "Wróć"
   },
   "FIRE_OVERVIEW": {
@@ -32,6 +33,9 @@
     "AVAILABLE_BRIGADES": "liczba dostępnych drużyn: ",
     "REPORT": "Zgłoś",
     "ACCEPT": "Zatwierdź zgłoszenie",
+    "ADJUST_SQUADS": "Dostosuj liczbę drużyn poszczególnych jednostek",
+    "CONFIRM_REPORT_FIRE_TITLE": "Potwierdź zgłoszenie",
+    "CONFIRM_REPORT_FIRE": "Wybrana liczba drużyn różni się od wcześniej zadeklarowanej. Czy jesteś pewien swojego wyboru?",
     "REQUEST_ACCEPTED": "Zgłoszenie przyjęte"
   },
   "EXCEPTION": {
