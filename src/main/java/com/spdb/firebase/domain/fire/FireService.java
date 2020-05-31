@@ -1,6 +1,7 @@
 package com.spdb.firebase.domain.fire;
 
 import com.spdb.firebase.system.exception.BusinessException;
+import jdk.jshell.Snippet;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -89,9 +90,10 @@ public class FireService {
     }
 
     private void validateExistenceOfFire(FireAccept fireAccept) {
-        Optional<FireEntity> fireEntity = fireRepository.findByLatitudeAndLongitude(
+        Optional<FireEntity> fireEntity = fireRepository.findByLatitudeAndLongitudeAndStatus(
                 fireAccept.getLatitude(),
-                fireAccept.getLongitude());
+                fireAccept.getLongitude(),
+                Status.ACTIVE);
 
         if(fireEntity.isPresent() && fireEntity.get().getStatus().equals(Status.ACTIVE)) {
             throw new BusinessException("fire-already-exists");

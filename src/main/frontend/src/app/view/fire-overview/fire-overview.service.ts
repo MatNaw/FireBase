@@ -39,7 +39,8 @@ export class FireOverviewService {
   }
 
   cancelFire(fireId: number): Observable<any> {
-    console.log("cancel fire with id: " + fireId);
-    return null;
+    return this.httpClient.post<FireAcceptModel>(`${FireOverviewService.URL_PREFIX}/cancel`, null, {
+      params: { fireId: fireId.toString() }
+    });
   }
 }

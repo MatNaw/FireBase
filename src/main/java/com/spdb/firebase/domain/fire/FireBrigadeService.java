@@ -29,6 +29,7 @@ public class FireBrigadeService {
     public Long getAvailableSquadsAmount(Brigade brigade) {
         Long occupied = fireBrigadeRepository.findFireBrigadeEntitiesByBrigade_Id(brigade.getId())
                 .stream()
+                .filter(it -> it.getFire().getStatus() == Status.ACTIVE)
                 .mapToLong(FireBrigadeEntity::getSquadAmount)
                 .sum();
         return Math.max(brigade.getSquadMaxAmount() - occupied, 0);
