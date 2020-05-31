@@ -67,6 +67,28 @@ h1 {
   }
 }
 
+.btn-warning {
+  padding: 1rem;
+  color: $fire-primary-blue;
+  background-color: $fire-yellow;
+  border: 0.05rem solid $fire-red;
+  border-radius: 4px;
+
+  cursor: pointer;
+
+  font-size: 1.5rem;
+  font-weight: bold;
+
+  &.btn {
+    text-decoration: none;
+
+    &:hover {
+      color: $fire-primary-blue;
+      background-color: $fire-light-red;
+    }
+  }
+}
+
 .btn-cancel {
   padding: 1rem;
   color: $fire-primary-blue;
