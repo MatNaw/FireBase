@@ -192,7 +192,7 @@ export class ReportFireComponent implements OnInit, OnDestroy {
   }
 
   openConfirmationModal() {
-    this.modals.open(this.confirmReportFire, { size: 'sm', centered: true, backdrop: 'static' })
+    this.modals.open(this.confirmReportFire, { centered: true, backdrop: 'static' })
       .result.then(() => {
         this.acceptFire();
     }, () => {

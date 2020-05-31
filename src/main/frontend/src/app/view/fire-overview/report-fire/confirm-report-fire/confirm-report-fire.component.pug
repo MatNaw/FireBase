@@ -2,15 +2,15 @@
   button.btn.button-modal-close(type = "button", (click) = "cancel()")
     i.fas.fa-times
 
+
   .modal-header
     .modal-header-text-centered
       h2(translate) REPORT_FIRE.CONFIRM_REPORT_FIRE_TITLE
 
   .modal-content
     .row.align-items-center
-      .modal-body(style="padding: 0 15px;")
-        h4(translate) REPORT_FIRE.CONFIRM_REPORT_FIRE
-
-      .row.justify-content-between(style="padding: 0 70px;")
-        button.btn.btn-link.btn-cancel(type="button", (click)="cancel()", translate) ALL.NO
-        button.btn.btn-link.btn-text(type="submit", (click)="onSubmit()", translate) ALL.YES
+      .modal-body(style="padding: 0px 20px;")
+        h4.mb-4(translate) REPORT_FIRE.CONFIRM_REPORT_FIRE
+    .row.justify-content-between
+      button.btn.btn-link.btn-cancel(type="button", style="padding: 10px 20px;", (click)="cancel()", translate) ALL.NO
+      button.btn.btn-link.btn-text(type="submit", style="padding: 10px 20px;", (click)="onSubmit()", translate) ALL.YES
