@@ -35,4 +35,4 @@ storage:
   import-directory: a_storage/initial_data
 
 google-maps-api:
-  api-key: "AIzaSyAaqPB_iJm8kbJCfJHaSljjVWG_K5jrtPY"
+  api-key: ""
